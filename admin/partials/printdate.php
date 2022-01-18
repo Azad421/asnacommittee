@@ -1,0 +1,1 @@
+<span class="printdate">Printed on: <?= date('d/m/Y'); ?></span>

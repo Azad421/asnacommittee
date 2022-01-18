@@ -1,0 +1,55 @@
+a:hover{
+  text-decoration: none;
+}
+.auth .brand-logo {
+  margin-bottom: 2rem;
+  color: #05059b;
+}
+.printdate{
+  display: none;
+}
+@media print {
+  .printbtn {
+    display: none;
+  }
+  .save_as {
+    display: none;
+  }
+  .addbtn{
+    display: none;
+  }
+  .printdate{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .printbtn{
+    display: none;
+  }
+}
+
+.brand-logo img{
+    width: 50px;
+}
+
+.input-group-append .input-group-text {
+  color: #303030;
+}
+.dropdown .dropdown-toggle:after {
+  content: "\F0140";
+}
+
+.card-body .d-flex.justify-content-end {
+    margin-bottom: 1rem;
+}
+
+label.form-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.area{
+  font-size: 18px;
+}

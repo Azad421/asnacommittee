@@ -1,0 +1,2 @@
+for Database change in php->config.php
+and for 404 change in htaccess url
