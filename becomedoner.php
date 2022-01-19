@@ -2,6 +2,7 @@
 session_start();
 ob_start();
 include_once("./php/autoload.php");
+include_once('./partials/checckloggedout.php');
 $title = "Become A doner";
 $areas = [];
 include('partials/header.php');

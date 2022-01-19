@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("./php/autoload.php");
+include_once('./partials/checckloggedout.php');
 $title = "Asnaf Commitee - Report Asnaf";
 $areas = [];
 $countries = [];

@@ -2,6 +2,7 @@
 session_start();
 include_once("./php/autoload.php");
 $title = "Asnaf Commitee";
+include_once('./partials/checckloggedout.php');
 include('partials/header.php');
 
 $sql = "SELECT * FROM `asnaf` INNER JOIN `all_members` ON `asnaf`.`Identification_id`=`all_members`.`Identification_id`  ";
