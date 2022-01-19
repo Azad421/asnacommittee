@@ -91,6 +91,8 @@ $name = $row['name'];
                     $bank_account_no = $row['bank_account_no'];
                     $bank_account_holder_name = $row['bank_account_holder_name'];
                     $notes = $row['notes'];
+                    $nick_name = $row['nick_name'];
+                    $condition = $row['condition'];
                 ?>
                 <div class="row mb-3">
                     <div class="col-1"></div>
@@ -392,6 +394,16 @@ $name = $row['name'];
                     <div class="col-1"></div>
                     <div class="  col-sm-3">Notes :</div>
                     <div class="  col-sm-7"><?= $notes ?></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="  col-sm-3">Nick Name :</div>
+                    <div class="  col-sm-7"><?= $nick_name ?></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="  col-sm-3">Condition :</div>
+                    <div class="  col-sm-7"><?= $life_condition ?></div>
                 </div>
                 <?php
                 } else {

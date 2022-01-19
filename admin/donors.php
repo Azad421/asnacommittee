@@ -3,7 +3,7 @@ require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
 $title = "Asnaf Commitee - Members";
 include('partials/header.php');
-$sql = "SELECT * FROM `donors`";
+$sql = "SELECT * FROM `donors` INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id`";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
     $sql .= "WHERE CONCAT_WS( `donor_name`, `area`, `area_city`, `area_state`) LIKE '%$key%'";
@@ -49,7 +49,7 @@ $count = $select->num_rows;
                         $donor_name = $row['donor_name'];
                         $area_city = $row['area_city'];
                         $area_state = $row['area_state'];
-                        $area = $row['area'];
+                        $area = $row['area_name'];
                         $donate_asnaf = $row['donate_asnaf'];
                         $items_to_donate = $row['items_to_donate'];
                         $telephone = $row['telephone'];
@@ -93,9 +93,7 @@ $count = $select->num_rows;
                         $i++;
                     }
                 } else {
-                    ?>
-                <h4>No members found</h4>
-                <?php
+                    include_once('./partials/empty.php');
                 }
 
                 ?>

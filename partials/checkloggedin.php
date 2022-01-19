@@ -18,6 +18,7 @@ if (!isset($_SESSION['loggedin'])) {
     $selectMosque = $db->runquery($sql3);
     $mosque = $selectMosque->fetch_assoc();
     $mosque_name = $mosque['mosque_name'];
+    $mosque_area = $mosque['area'];
     $sql = "SELECT * FROM `all_members` WHERE `Identification_id`='$member_id'";
     $query2 = $db->runquery($sql);
     $member = $query2->fetch_assoc();

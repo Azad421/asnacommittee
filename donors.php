@@ -3,7 +3,7 @@ require_once("./php/autoload.php");
 include('partials/checkloggedin.php');;
 $title = "Asnaf Commitee - Members";
 include('partials/header.php');
-$sql = "SELECT * FROM `donors` WHERE `area` LIKE '%$committeearea%'";
+$sql = "SELECT * FROM `donors`  INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id` WHERE `area`= '$mosque_area'";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
     $sql .= " CONCAT_WS( `donor_name`, `area`, `area_city`, `area_state`) LIKE '%$key%'";

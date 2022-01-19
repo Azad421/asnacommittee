@@ -25,7 +25,20 @@ include('partials/header.php');
                         </div>
                         <div class="form-group">
                             <label for="area">Area</label>
-                            <input type="text" id="area" name="area" class="form-control" placeholder="Area">
+                            <select name="area" class="form-control" id="area">
+                                <option value="">Select Area</option>
+                                <?php
+                                $sql = "SELECT * FROM `mosque_areas`";
+                                $select = $db->runquery($sql);
+                                if ($select->num_rows > 0) {
+                                    while ($row = $select->fetch_assoc()) {
+                                ?>
+                                <option value="<?= $row['area_id'] ?>"><?= $row['area_name'] ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="area_city">Area City</label>

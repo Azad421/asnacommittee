@@ -8,7 +8,7 @@ if (isset($_GET['mosque'])) {
 } else {
     header('location:./mosque.php');
 }
-$sql = "SELECT * FROM `mosques` WHERE `mosque_id`='$mosque_id'";
+$sql = "SELECT * FROM `mosques` INNER JOIN `mosque_areas` ON `mosques`.`area`=`mosque_areas`.`area_id` WHERE `mosque_id`='$mosque_id'";
 $select = $db->runquery($sql);
 $count = $select->num_rows;
 $row = $select->fetch_assoc();
@@ -31,7 +31,7 @@ $name = $row['mosque_name'];
                     
                         $address1 = $row['address1'];
                         $address2 = $row['address2'];
-                        $area = $row['area'];
+                        $area = $row['area_name'];
                         $city = $row['city'];
                         $state = $row['state'];
                         $postcode = $row['postcode'];

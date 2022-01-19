@@ -31,7 +31,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="reportedasnaf.php">
+            <a class="nav-link" href="reportedasnafs.php">
                 <i class="mdi mdi-account-multiple menu-icon"></i>
                 <span class="menu-title">Reported Asnaf</span>
             </a>

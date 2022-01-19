@@ -54,16 +54,6 @@ $count = $select->num_rows;
                         $postcode = $row['postcode'];
                         $country = $row['country'];
                         $telephone = $row['telephone'];
-
-                        $selectarea =  $db->runquery("SELECT * FROM `areas` WHERE `area_id`='$area'");
-                        $areasc = $selectarea->num_rows;
-                        $aread = $selectarea->fetch_assoc();
-                        $area_id = '';
-                        $area_name = '';
-                        if($areasc>0){
-                            $area_id = $aread['area_id'];
-                            $area_name = $aread['area_name'];
-                        }
                 ?>
                 <div class="row">
                     <div class="col-2 col-sm-1 p-1 text-right">
@@ -73,7 +63,7 @@ $count = $select->num_rows;
                         <div class="row mb-3" id="row<?= $asnaf_id ?>">
                             <div class="col-md-3"><?= $name ?></div>
                             <div class="col-md-5">
-                                <?= $address1 . ", " . $address2 . ", " . $area_name . ", " . $city . ", " . $postcode . ", " . $state . ", " . $country ?>
+                                <?= $address1 . ", " . $address2 . ", " . $area . ", " . $city . ", " . $postcode . ", " . $state . ", " . $country ?>
                             </div>
                             <div class="col-md-2"><?= $telephone ?></div>
                             <div class="col-md-2 save_as">

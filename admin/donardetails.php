@@ -8,7 +8,7 @@ if (isset($_GET['donor'])) {
 } else {
     header('location:./donor.php');
 }
-$sql = "SELECT * FROM `donors`  WHERE `donor_id`='$donor_id'";
+$sql = "SELECT * FROM `donors` INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id`  WHERE `donor_id`='$donor_id'";
 $select = $db->runquery($sql);
 $count = $select->num_rows;
 $row = $select->fetch_assoc();
@@ -16,7 +16,7 @@ $donor_id = $row['donor_id'];
 $donor_name = $row['donor_name'];
 $area_city = $row['area_city'];
 $area_state = $row['area_state'];
-$area = $row['area'];
+$area = $row['area_name'];
 $donate_asnaf = $row['donate_asnaf'];
 $items_to_donate = $row['items_to_donate'];
 $telephone = $row['telephone'];

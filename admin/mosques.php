@@ -3,7 +3,7 @@ include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
 $title = "Asnaf Commitee - Mosque";
 include('partials/header.php');
-$sql = "SELECT * FROM `mosques`";
+$sql = "SELECT * FROM `mosques` INNER JOIN `mosque_areas` ON `mosques`.`area`=`mosque_areas`.`area_id`";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
     $sql .= "WHERE CONCAT_WS( `mosque_name`, `address1`, `address2`, `area`, `city`, `state`) LIKE '%$key%'";
@@ -49,7 +49,7 @@ $count = $select->num_rows;
                         $mosque_name = $row['mosque_name'];
                         $address1 = !empty($row['address1']) ? $row['address1'] . ', ' : '';
                         $address2 = !empty($row['address2']) ? $row['address2'] . ', ' : '';
-                        $area = !empty($row['area']) ? $row['area'] : '';
+                        $area = !empty($row['area_name']) ? $row['area_name'] : '';
                         $city = $row['city'];
                         $state = $row['state'];
                         $postcode = $row['postcode'];
