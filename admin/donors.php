@@ -3,7 +3,7 @@ require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
 $title = "Asnaf Commitee - Members";
 include('partials/header.php');
-$sql = "SELECT * FROM `donors` INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id`";
+$sql = "SELECT * FROM `donors`";// INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id`
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
     $sql .= "WHERE CONCAT_WS( `donor_name`, `area`, `area_city`, `area_state`) LIKE '%$key%'";
@@ -49,7 +49,7 @@ $count = $select->num_rows;
                         $donor_name = $row['donor_name'];
                         $area_city = $row['area_city'];
                         $area_state = $row['area_state'];
-                        $area = $row['area_name'];
+                        // $area = $row['area_name'];
                         $donate_asnaf = $row['donate_asnaf'];
                         $items_to_donate = $row['items_to_donate'];
                         $telephone = $row['telephone'];
@@ -66,7 +66,14 @@ $count = $select->num_rows;
                             </div>
                             <div class="col-md-2"><?= $telephone ?></div>
                             <div class="col-md-2">
-                                <?= $area ?>
+                                <?php
+                                        $selectarea = $db->runquery("SELECT * FROM `donor_area` INNER JOIN `mosque_areas` ON `donor_area`.`area_id`=`mosque_areas`.`area_id` WHERE `donor_area`.`donor_id`='$donor_id'");
+                                        while($area = $selectarea->fetch_assoc()){
+                                    ?>
+                                <?= $area['area_name'] ?>,
+                                <?php
+                                        }
+                                    ?>
                             </div>
                             <div class="col-md-3">
                                 <?= $area_state ?>

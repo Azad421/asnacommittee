@@ -20,7 +20,7 @@ class Mosque
         $mosque_name = $this->db->realString($data['mosque_name']);
         $address1 = $this->db->realString($data['address1']);
         $address2 = $this->db->realString($data['address2']);
-        $area = $this->db->realString($data['area']);
+        $areas = $data['area'];
         $city = $this->db->realString($data['city']);
         $postcode = $this->db->realString($data['postcode']);
         $state = $this->db->realString($data['state']);
@@ -32,8 +32,8 @@ class Mosque
             $this->response['message'] = 'Please enter Mosque name';
         } elseif ($this->db->checkUniqe("mosques", 'mosque_name', $mosque_name)) {
             $this->response['message'] = "Mosque already exists!";
-        } elseif (empty($area)) {
-            $this->response['message'] = "Please enter Area!";
+        } elseif (!isset($areas)) {
+            $this->response['message'] = "Please select an Area!";
         } elseif (empty($city)) {
             $this->response['message'] = "City is required!";
         } elseif (empty($postcode)) {
@@ -45,9 +45,14 @@ class Mosque
         }
 
         if (!isset($this->response['message'])) {
-            $sql = "INSERT INTO `mosques`(`mosque_name`, `address1`, `address2`, `area`, `city`, `postcode`, `state`, `country`) VALUES ('$mosque_name','$address1', '$address2', '$area','$city','$postcode','$state','$country')";
+            $sql = "INSERT INTO `mosques`(`mosque_name`, `address1`, `address2`, `city`, `postcode`, `state`, `country`) VALUES ('$mosque_name','$address1', '$address2', '$city','$postcode','$state','$country')";
             $query = $this->db->runquery($sql);
+            
+            $mosque_id = $this->db->lastid();
 
+            foreach ($areas as $key => $area) {
+                $this->db->runquery("INSERT INTO `mosque_area`(`mosque_id`, `area_id`) VALUES ('$mosque_id','$area')");
+            }
             if ($query) {
                 $this->response['status'] = 1;
                 $this->response['type'] = 'success';
@@ -65,7 +70,7 @@ class Mosque
         $mosque_name = $this->db->realString($data['mosque_name']);
         $address1 = $this->db->realString($data['address1']);
         $address2 = $this->db->realString($data['address2']);
-        $area = $this->db->realString($data['area']);
+        // $area = $this->db->realString($data['area']);
         $city = $this->db->realString($data['city']);
         $postcode = $this->db->realString($data['postcode']);
         $state = $this->db->realString($data['state']);
@@ -78,8 +83,8 @@ class Mosque
             $this->response['message'] = 'Please enter Mosque name';
         } elseif ($this->db->checkUniqe("mosques", 'mosque_name', $mosque_name, 'mosque_id', $mosque_id)) {
             $this->response['message'] = "Mosque already exists!";
-        } elseif (empty($area)) {
-            $this->response['message'] = "Please enter Area!";
+        } elseif (!isset($area)) {
+            $this->response['message'] = "Please select Area!";
         } elseif (empty($city)) {
             $this->response['message'] = "City is required!";
         } elseif (empty($postcode)) {
@@ -91,7 +96,7 @@ class Mosque
         }
 
         if (!isset($this->response['message'])) {
-            $sql = "UPDATE `mosques` SET `mosque_name`='$mosque_name',`address1`='$address1',`address2`='$address2',`area`='$area',`city`='$city',`postcode`='$postcode',`state`='$state',`country`='$country' WHERE `mosque_id`='$mosque_id'";
+            $sql = "UPDATE `mosques` SET `mosque_name`='$mosque_name',`address1`='$address1',`address2`='$address2',`city`='$city',`postcode`='$postcode',`state`='$state',`country`='$country' WHERE `mosque_id`='$mosque_id'";
             $query = $this->db->runquery($sql);
             if ($query) {
                 $this->response['status'] = 1;

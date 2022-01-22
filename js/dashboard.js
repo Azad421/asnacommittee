@@ -321,7 +321,7 @@ function printDiv(divName) {
   var pageHeight = parseInt($("body").css("height"));
   var offsetHeight = 1230;
   for (var i = 0; i < pageHeight; i++) {
-    if (i % offsetHeight == 0 || i == 0) {
+    if (i == 0) {
       $("body").append(
         '<h3 style="text-align: center;position: absolute;top: ' +
           i +

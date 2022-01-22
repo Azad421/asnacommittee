@@ -3,7 +3,7 @@ session_start();
 ob_start();
 include_once("./php/autoload.php");
 include_once('./partials/checckloggedout.php');
-$title = "Become A doner";
+$title = "Become A donor";
 $areas = [];
 include('partials/header.php');
 ?>
@@ -25,20 +25,48 @@ include('partials/header.php');
                         </div>
                         <div class="form-group">
                             <label for="area">Area</label>
-                            <select name="area" class="form-control" id="area">
-                                <option value="">Select Area</option>
+                            <div class="row">
+                                <?php 
+                                $c = 1;
+                                    for ($i=0; $i < 4; $i++) { 
+                                ?>
+                                <div class="col-sm-6 col-12 mb-3 d-flex align-items-center">
+                                    <span class="pr-2"><?= $c ?></span>
+                                    <select name="area[]" class="form-control area" id="area<?=  $i ?>">
+                                        <option value="">Area</option>
+                                        <?php
+                                        $sql = "SELECT * FROM `mosque_areas`";
+                                        $select = $db->runquery($sql);
+                                        if ($select->num_rows > 0) {
+                                            while ($row = $select->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?= $row['area_id'] ?>"><?= $row['area_name'] ?></option>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <?php
+                                $c++;
+                                    }
+                                 ?>
+                            </div>
+                            <!-- <?php
                                 $sql = "SELECT * FROM `mosque_areas`";
                                 $select = $db->runquery($sql);
                                 if ($select->num_rows > 0) {
                                     while ($row = $select->fetch_assoc()) {
                                 ?>
-                                <option value="<?= $row['area_id'] ?>"><?= $row['area_name'] ?></option>
-                                <?php
+                            <label for="<?= $row['area_name'] ?>" class="form-label">
+                                <input type="checkbox" class="mr-2" name="area[]" id="<?= $row['area_name'] ?>"
+                                    value="<?= $row['area_id'] ?>">
+                                <span><?= $row['area_name'] ?></span>
+                            </label>
+                            <?php
                                     }
                                 }
-                                ?>
-                            </select>
+                                ?> -->
                         </div>
                         <div class="form-group">
                             <label for="area_city">Area City</label>
@@ -55,7 +83,7 @@ include('partials/header.php');
                                 <option value="<?= $area_state ?>"><?= $area_state ?></option>
                                 <?php
                                         }
-                                        ?>
+                                ?>
                             </select>
 
                         </div>
@@ -66,16 +94,6 @@ include('partials/header.php');
                         </div>
                         <div class="form-group">
                             <label for="items_to_donate">Items To Donate non cash</label>
-                            <!-- <select name="items_to_donate" class="form-control" id="">
-                                <option value="">Items To Donate</option>
-                                <?php
-                                        foreach ($items as $key => $item) {
-                                            ?>
-                                <option value="<?= $item ?>"><?= $item ?></option>
-                                <?php
-                                        }
-                                    ?>
-                            </select> -->
                             <?php
                                 foreach ($items as $key => $item) {
                             ?>
@@ -118,8 +136,14 @@ function isAdded(response) {
         $('#add_donor').each(function() {
             this.reset();
         });
+        setTimeout(() => {
+            window.location.href = 'becomedoner.php';
+        }, 3000);
     }
 };
+for (let i = 0; i < 4; i++) {
+    $('select#area' + i).select2();
+}
 </script>
 <!-- content-wrapper ends -->
 <?php

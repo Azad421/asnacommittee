@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="<?= URL ?>css/custome.css">
     <link rel="stylesheet" href="./vendors/toastr/toastr.css">
@@ -26,6 +27,8 @@
     <script src="./js/formSubmit.js"></script>
     <script src="./js/loader.js"></script>
     <script src="<?= URL ?>js/off-canvas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>

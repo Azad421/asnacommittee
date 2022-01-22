@@ -8,7 +8,8 @@ if (isset($_GET['mosque'])) {
 } else {
     header('location:./mosque.php');
 }
-$sql = "SELECT * FROM `mosques` INNER JOIN `mosque_areas` ON `mosques`.`area`=`mosque_areas`.`area_id` WHERE `mosque_id`='$mosque_id'";
+// INNER JOIN `mosque_areas` ON `mosques`.`area`=`mosque_areas`.`area_id` 
+$sql = "SELECT * FROM `mosques` WHERE `mosque_id`='$mosque_id'";
 $select = $db->runquery($sql);
 $count = $select->num_rows;
 $row = $select->fetch_assoc();
@@ -28,10 +29,9 @@ $name = $row['mosque_name'];
                 <?php
                 }
                 if ($count > 0) {
-                    
+                        $mosque_id = $row['mosque_id'];
                         $address1 = $row['address1'];
                         $address2 = $row['address2'];
-                        $area = $row['area_name'];
                         $city = $row['city'];
                         $state = $row['state'];
                         $postcode = $row['postcode'];
@@ -55,7 +55,17 @@ $name = $row['mosque_name'];
                 <div class="row mb-3">
                     <div class="col-1"></div>
                     <div class="col-sm-3">Area :</div>
-                    <div class="col-sm-7"> <?= $area ?></div>
+                    <div class="col-sm-7">
+                        <?php
+                            $selectarea = $db->runquery("SELECT * FROM `mosque_area` INNER JOIN `mosque_areas` ON `mosque_area`.`area_id`=`mosque_areas`.`area_id` WHERE `mosque_area`.`mosque_id`='$mosque_id'");
+
+                            while($area = $selectarea->fetch_assoc()){
+                        ?>
+                        <p><?= $area['area_name'] ?></p>
+                        <?php
+                            }
+                        ?>
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-1"></div>
