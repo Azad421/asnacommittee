@@ -19,6 +19,9 @@ $reportasnaf_name = $row['reportasnaf_name'];
 $report_asnaf_telephone = $row['report_asnaf_telephone'];
 $report_asnaf_address = $row['report_asnaf_address'];
 $report_asnaf_condition = $row['report_asnaf_condition'];
+$report_asnaf_area = $row['report_asnaf_area'];
+$report_asnaf_city = $row['report_asnaf_city'];
+$report_asnaf_state = $row['report_asnaf_state'];
 $report_at = $row['report_at'];
 ?>
 <div class="content-wrapper">
@@ -60,6 +63,21 @@ $report_at = $row['report_at'];
                     <div class="col-1"></div>
                     <div class="col-sm-3">Report Asnaf Address :</div>
                     <div class="col-sm-7"> <?= $report_asnaf_address ?></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="col-sm-3">Report Asnaf Area :</div>
+                    <div class="col-sm-7"> <?= $report_asnaf_area ?></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="col-sm-3">Report Asnaf City :</div>
+                    <div class="col-sm-7"> <?= $report_asnaf_city ?></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="col-sm-3">Report Asnaf State :</div>
+                    <div class="col-sm-7"> <?= $report_asnaf_state ?></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-1"></div>

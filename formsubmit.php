@@ -17,7 +17,7 @@ if (isset($_POST['add_user'])) {
 } elseif (isset($_POST['add_donor'])) {
     $response = $donor->saveNew($_POST);
 } elseif (isset($_POST['add_report'])) {
-    $response = $report->saveNew($_POST);
+    $response = $report->saveNewReport($_POST);
 }
 
 echo json_encode($response);

@@ -15,7 +15,7 @@ class Report
         $this->db = $db;
     }
 
-    public function saveNew(array $data)
+    public function saveNewReport(array $data)
     {
         $reporter_name = $this->db->realString($data['reporter_name']);
         $reporter_telephone = $this->db->realString($data['reporter_telephone']);
@@ -23,6 +23,9 @@ class Report
         $report_asnaf_telephone = $this->db->realString($data['report_asnaf_telephone']);
         $report_asnaf_address = $this->db->realString($data['report_asnaf_address']);
         $report_asnaf_condition = $this->db->realString($data['report_asnaf_condition']);
+        $report_asnaf_area = $this->db->realString($data['report_asnaf_area']);
+        $report_asnaf_city = $this->db->realString($data['report_asnaf_city']);
+        $report_asnaf_state = $this->db->realString($data['report_asnaf_state']);
 
         $this->response['status'] = 0;
         $this->response['type'] = 'error';
@@ -39,7 +42,7 @@ class Report
         }
 
         if (!isset($this->response['message'])) {
-            $sql = "INSERT INTO `reports`(`reporter_name`, `reporter_telephone`, `reportasnaf_name`, `report_asnaf_telephone`, `report_asnaf_address`, `report_asnaf_condition`) VALUES ('$reporter_name','$reporter_telephone','$reportasnaf_name','$report_asnaf_telephone','$report_asnaf_address','$report_asnaf_condition')";
+            $sql = "INSERT INTO `reports`(`reporter_name`, `reporter_telephone`, `reportasnaf_name`, `report_asnaf_telephone`, `report_asnaf_address`,  `report_asnaf_area`, `report_asnaf_city`, `report_asnaf_state`, `report_asnaf_condition`) VALUES ('$reporter_name','$reporter_telephone','$reportasnaf_name','$report_asnaf_telephone','$report_asnaf_address','$report_asnaf_area','$report_asnaf_city','$report_asnaf_state','$report_asnaf_condition')";
             $query = $this->db->runquery($sql);
 
             if ($query) {

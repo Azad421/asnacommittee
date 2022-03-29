@@ -3,12 +3,12 @@ require_once("../php/autoload.php");
 include('partials/checkAdmin.php');
 $title = "Asnaf Commitee - Reported Asnaf";
 include('partials/header.php');
-$sql = "SELECT * FROM `reports`";
+$sql = "SELECT * FROM `reports` ";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
-    $sql .= "WHERE `reporter_name` LIKE '%$key%'";
+    $sql .= " WHERE `reporter_name` LIKE '%$key%'";
 }
-$sql .= " ORDER BY `reporter_name` ASC";
+$sql .= " ORDER BY `reportasnaf_name` ASC";
 $select = $db->runquery($sql);
 $count = $select->num_rows;
 ?>
@@ -34,10 +34,11 @@ $count = $select->num_rows;
                     <div class="col-2 col-sm-1 text-right p-1">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
-                            <div class="col-md-3">Reporter Name</div>
-                            <div class="col-md-2">Reporter Telephone</div>
-                            <div class="col-md-2">Report Asnaf Name</div>
-                            <div class="col-md-3">Report Asnaf Telephone</div>
+                            <div class="col-md-3">Report Asnaf Name</div>
+                            <div class="col-md-2">Report Asnaf Telephone</div>
+                            <div class="col-md-2">Report Asnaf Area</div>
+                            <div class="col-md-2">Report Asnaf City</div>
+                            <div class="col-md-2">Report Asnaf State</div>
                         </div>
                     </div>
                 </div>
@@ -52,23 +53,35 @@ $count = $select->num_rows;
                         $report_asnaf_telephone = $row['report_asnaf_telephone'];
                         $report_asnaf_address = $row['report_asnaf_address'];
                         $report_asnaf_condition = $row['report_asnaf_condition'];
+                        $report_asnaf_area = $row['report_asnaf_area'];
+                        $report_asnaf_state = $row['report_asnaf_state'];
+                        $report_asnaf_city = $row['report_asnaf_city'];
                 ?>
-                <div class="row" id="row<?= $donor_id ?>">
+                <div class="row" id="row<?= $report_id ?>">
                     <div class="col-2 col-sm-1 p-1 text-right">
                         <?= $i . '.' ?>
                     </div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
-                            <div class="col-md-3">
-                                <?= $reporter_name ?>
-                            </div>
-                            <div class="col-md-2"><?= $reporter_telephone ?></div>
-                            <div class="col-md-2"><?= $reportasnaf_name ?></div>
-                            <div class="col-md-3">
+                            <div class="col-md-3"><?= $reportasnaf_name ?></div>
+                            <div class="col-md-2">
                                 <?= $report_asnaf_telephone ?>
                             </div>
-                            <div class="col-md-2 save_as">
+                            <div class="col-md-2">
+                                <?php
+                            $selectdarea = $db->runquery("SELECT * FROM `mosque_areas` WHERE `mosque_areas`.`area_id`='$report_asnaf_area' ORDER BY `area_name` ASC");
+                            while($darea = $selectdarea->fetch_assoc()){
+                                ?>
+                                <?= $darea['area_name'] ?>
+                                <?php
+                            }
+                            ?>
+                            </div>
+                            <div class="col-md-2"> <?= $report_asnaf_city ?> </div>
+                            <div class="col-md-2"> <?= $report_asnaf_state ?> </div>
+                            <div class="col-md-1 save_as">
                                 <a href="reportdeatils.php?report=<?= $report_id ?>" class="btn btn-success">Details</a>
+                                <!-- <i class="mdi mdi-eye"></i> -->
                             </div>
                         </div>
                     </div>
@@ -76,8 +89,6 @@ $count = $select->num_rows;
                 <?php
                         $i++;
                     }
-                } else {
-                include_once('./partials/empty.php');
                 }
                 ?>
             </div>

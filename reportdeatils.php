@@ -19,6 +19,9 @@ $reportasnaf_name = $row['reportasnaf_name'];
 $report_asnaf_telephone = $row['report_asnaf_telephone'];
 $report_asnaf_address = $row['report_asnaf_address'];
 $report_asnaf_condition = $row['report_asnaf_condition'];
+$report_asnaf_area = $row['report_asnaf_area'];
+$report_asnaf_city = $row['report_asnaf_city'];
+$report_asnaf_state = $row['report_asnaf_state'];
 $report_at = $row['report_at'];
 ?>
 <div class="content-wrapper">
@@ -34,7 +37,6 @@ $report_at = $row['report_at'];
                 </div>
                 <?php
                 }
-                if ($count > 0) {
                     ?>
                 <div class="row mb-3">
                     <div class="col-1"></div>
@@ -71,15 +73,6 @@ $report_at = $row['report_at'];
                     <div class="col-sm-3">Report At :</div>
                     <div class="col-sm-7"> <?= date('d-m-Y', strtotime($report_at)) ?></div>
                 </div>
-                <?php
-                    
-                } else {
-                    ?>
-                <h4 class="text-center mb-0">No members found</h4>
-                <?php
-                }
-
-                ?>
             </div>
         </div>
     </div>

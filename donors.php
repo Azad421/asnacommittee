@@ -1,9 +1,9 @@
 <?php
 require_once("./php/autoload.php");
 include('partials/checkloggedin.php');;
-$title = "Asnaf Commitee - Members";
+$title = "Asnaf Committee - Donors";
 include('partials/header.php');
-$selectarea = $db->runquery("SELECT * FROM `mosque_area` INNER JOIN `mosque_areas` ON `mosque_area`.`area_id`=`mosque_areas`.`area_id` WHERE `mosque_id`= '$mosque_id'");
+$selectarea = $db->runquery("SELECT * FROM `mosque_area` INNER JOIN `mosque_areas` ON `mosque_area`.`area_id`=`mosque_areas`.`area_id` WHERE `mosque_id`= '$mosque_id' ORDER BY `area_name` ASC");
 $areac = $selectarea->num_rows;
 ?>
 <div class="content-wrapper">
@@ -17,7 +17,7 @@ $areac = $selectarea->num_rows;
                     </a>
                     <?php include_once('./partials/printdate.php') ?>
                 </div>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 text-right p-1">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
@@ -32,7 +32,7 @@ $areac = $selectarea->num_rows;
                     while($area = $selectarea->fetch_assoc()){
                         $area_id = '';
                         $area_id = $area['area_id'];
-                       
+
 
                         $sql = "SELECT * FROM `donor_area`  INNER JOIN `donors` ON `donor_area`.`donor_id`=`donors`.`donor_id` WHERE `donor_area`. `area_id`= '$area_id'  ";
                         if (isset($_GET['search'])) {
@@ -42,14 +42,15 @@ $areac = $selectarea->num_rows;
                         $sql .= " ORDER BY `donor_name` ASC";
                         $select = $db->runquery($sql);
                         $count = $select->num_rows;
-                    
+                    if($count > 0){
                 ?>
                 <div class="row">
                     <div class="col-2 col-sm-1 p-1 text-right">
                     </div>
-                    <p class="area text-primary"><?= $area['area_name'] ?></p>
+                    <p class="area"><?= $area['area_name'] ?></p>
                 </div>
                 <?php
+                    }
                     if ($count > 0) {
                         $i = 1;
                         while ($row = $select->fetch_assoc()) {
@@ -77,7 +78,7 @@ $areac = $selectarea->num_rows;
                             $selectdarea = $db->runquery("SELECT * FROM `donor_area` INNER JOIN `mosque_areas` ON `donor_area`.`area_id`=`mosque_areas`.`area_id` WHERE `donor_area`.`donor_id`='$donor_id'");
                             while($darea = $selectdarea->fetch_assoc()){
                                 ?>
-                                <p><?= $darea['area_name'] ?></p>
+                                <?= $darea['area_name'] ?></br>
                                 <?php
                             }
                             ?>
@@ -91,7 +92,7 @@ $areac = $selectarea->num_rows;
                 <?php
                             $i++;
                         }
-                    } 
+                    }
                 };
                 if($areac== 0){
                     include_once('./partials/empty.php');

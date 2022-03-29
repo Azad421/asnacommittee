@@ -28,7 +28,7 @@ $count = $select->num_rows;
                 <?php
                 }
                 ?>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 p-1 text-right"> </div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">

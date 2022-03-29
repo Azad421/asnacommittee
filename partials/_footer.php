@@ -22,6 +22,7 @@
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="js/dashboard.js"></script>
+<script src="vendors/dropify/dist/js/dropify.min.js"></script>
 </body>
 
 </html>

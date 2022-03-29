@@ -2,7 +2,7 @@
 
 namespace classes;
 
-class Donor
+class Area
 {
     public $err;
     public $succ;

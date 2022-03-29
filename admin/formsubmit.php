@@ -36,6 +36,12 @@ if (isset($_POST['add_user'])) {
     $response = $donor->deleteData($_POST);
 } elseif (isset($_POST['update_donor'])) {
     $response = $donor->updateOld($_POST);
+} elseif (isset($_POST['new_reference'])) {
+    $response = $reference->store($_POST);
+} elseif (isset($_POST['update_reference'])) {
+    $response = $reference->update($_POST);
+} elseif (isset($_POST['delete_reference'])) {
+    $response = $reference->delete($_POST);
 }
 
 echo json_encode($response);

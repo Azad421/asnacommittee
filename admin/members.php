@@ -1,7 +1,7 @@
 <?php
 require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Members";
+$title = "Asnaf Committee - Members";
 $sql = "SELECT * FROM `all_members`";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
@@ -30,7 +30,7 @@ include_once('./partials/header.php');
                     }
                     ?>
                 </div>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 text-right p-1">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
@@ -57,12 +57,12 @@ include_once('./partials/header.php');
                         $country = $row['country'];
                         $telephone = $row['telephone'];
                 ?>
-                <div class="row">
+                <div class="row" id="row<?= $Identification_id ?>">
                     <div class="col-2 col-sm-1 p-1 text-right">
                         <?= $i . '.' ?>
                     </div>
                     <div class="col-10 col-sm-11 p-1">
-                        <div class="row mb-3" id="row<?= $Identification_id ?>">
+                        <div class="row mb-3">
                             <div class="col-md-3">
                                 <a class="text-dark text-decoration-none"
                                     href="member_details.php?member=<?= $Identification_id ?>">

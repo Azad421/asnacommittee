@@ -1,15 +1,16 @@
 <?php
-include("config.php");
-include("Database.php");
-include("User.php");
-include("Auth.php");
-include("Mosque.php");
-include("Core.php");
-include("Committee.php");
-include("Admin.php");
-include("array.php");
-include("Donor.php");
-include("Report.php");
+include_once("config.php");
+include_once("Database.php");
+include_once("User.php");
+include_once("Auth.php");
+include_once("Mosque.php");
+include_once("Core.php");
+include_once("Committee.php");
+include_once("Admin.php");
+include_once("array.php");
+include_once("Donor.php");
+include_once("Report.php");
+include_once("Reference.php");
 
 
 // Classes object
@@ -22,3 +23,4 @@ $committee = new classes\Committee($db);
 $admin = new classes\Admin($db);
 $donor = new classes\Donor($db);
 $report = new classes\Report($db);
+$reference = new classes\Reference($db);

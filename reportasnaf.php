@@ -41,6 +41,33 @@ include('./partials/header.php');
                                 class="form-control" placeholder="Report Asnaf Address">
                         </div>
                         <div class="form-group">
+                            <label for="report_asnaf_area">Report Asnaf Area</label>
+                            <select name="report_asnaf_area" class="form-control area" id="report_asnaf_area">
+                                <option value="">Report Asnaf Area</option>
+                                <?php
+                                        $sql = "SELECT * FROM `mosque_areas`";
+                                        $select = $db->runquery($sql);
+                                        if ($select->num_rows > 0) {
+                                            while ($row = $select->fetch_assoc()) {
+                                        ?>
+                                <option value="<?= $row['area_id'] ?>"><?= $row['area_name'] ?></option>
+                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report_asnaf_city">Report Asnaf City</label>
+                            <input type="text" id="report_asnaf_city" name="report_asnaf_city" class="form-control"
+                                placeholder="Report Asnaf City">
+                        </div>
+                        <div class="form-group">
+                            <label for="report_asnaf_state">Report Asnaf State</label>
+                            <input type="text" id="report_asnaf_state" name="report_asnaf_state" class="form-control"
+                                placeholder="Report Asnaf State">
+                        </div>
+                        <div class="form-group">
                             <label for="report_asnaf_condition">Report Asnaf Condition</label>
                             <textarea id="report_asnaf_condition" name="report_asnaf_condition" class="form-control"
                                 placeholder="Report Asnaf Condition"></textarea>
@@ -67,6 +94,7 @@ function isAdded(response) {
         });
     }
 };
+$('select#report_asnaf_area').select2();
 </script>
 <!-- content-wrapper ends -->
 <?php

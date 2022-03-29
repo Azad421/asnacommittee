@@ -22,6 +22,7 @@
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="<?= URL ?>js/dashboard.js"></script>
+
 </body>
 
 </html>

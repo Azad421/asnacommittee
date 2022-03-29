@@ -9,6 +9,7 @@ class Donor
 
     public $db;
     public $response;
+    public $order_id;
 
     public function __construct($db)
     {
@@ -18,74 +19,105 @@ class Donor
     public function saveNew(array $data)
     {
         $donor_name = $this->db->realString($data['donor_name']);
+        $nick_name = $this->db->realString($data['nick_name']);
         $telephone = $this->db->realString($data['telephone']);
+        $reg_no = $this->db->realString($data['gov_reg_no']);
         $areas = $data['area'];
         $area_city = $this->db->realString($data['area_city']);
         $area_state = $this->db->realString($data['area_state']);
-        $donate_asnaf = $data['donate_asnaf'];
-        $donate_to_jalaria = $data['donate_to_jalaria'];
+        $bank_name = $this->db->realString($data['bank_name']);
+        $account_holder = $this->db->realString($data['account_holder']);
+        $bank_account_no = $this->db->realString($data['bank_account_no']);
 
         $this->response['status'] = 0;
         $this->response['type'] = 'error';
         if (empty($donor_name)) {
             $this->response['message'] = 'Please enter Donor name';
-        } elseif ($this->db->checkUniqe("donors", 'donor_name', $donor_name)) {
-            $this->response['message'] = "Donor already exists!";
-        } elseif (empty($telephone)) {
-            $this->response['message'] = "Please enter Telephone!";
-        } elseif (empty($area_city)) {
-            $this->response['message'] = "City is required!";
-        } elseif (empty($area_state)) {
-            $this->response['message'] = "Area State is required!";
-        }else if (!empty($donate_to_jalaria)) {
-            if(!is_numeric($donate_to_jalaria)){
-                $this->response['message'] = "Donate to Jalaria must be a decimal number!";
-            }
-        } else  if (empty($donate_asnaf)) {
-            $this->response['message'] = "Donate to Asnaf is required!";
-        } else if(!empty($donate_asnaf)){
-            if(!is_numeric($donate_asnaf)){
-                $this->response['message'] = "Donate to Asnaf must be a decimal number!";
-            }
         }
 
         if (isset($areas)) {
             $i = 0;
             foreach ($areas as $key => $area) {
-                if(!empty($area)){
+                if (!empty($area)) {
                     $i = 1;
                 }
                 $this->response['area_id'][] = $area;
             }
-            if($i == 0){
+            if ($i == 0) {
                 $this->response['message'] = "Please Select Area!";
             }
-        }else{
+        } else {
             $this->response['message'] = "Please Select Area!";
         }
 
-        
-
-        if(isset($data['items_to_donate'])){
-            $items_to_donate = implode(',', $data['items_to_donate']) ;
-        }else{
-            $this->response['message'] = "Please Select state!";
-        }
-
         if (!isset($this->response['message'])) {
-            $sql = "INSERT INTO `donors`(`donor_name`, `telephone`, `area_city`, `area_state`, `donate_asnaf`, `items_to_donate`, `donate_to_jalaria`) VALUES ('$donor_name','$telephone','$area_city','$area_state','$donate_asnaf','$items_to_donate','$donate_to_jalaria')";
-            $query = $this->db->runquery($sql);
 
+            $logo = '';
+            if (isset($_FILES['logo']) && !empty($_FILES['logo']['name'])) {
+                $file = $_FILES['logo'];
+                $file_ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $logo = 'donor-logo-' . md5(time()) . '.' . $file_ext;
+                move_uploaded_file($file['tmp_name'], dirname(__DIR__) . '/images/' . $logo);
+            }
+            $sql = "INSERT INTO `donors`(`donor_name`, `nick_name`, `telephone`, `gov_reg_no`, `logo`,`area_city`, `area_state`, `bank_name`, `account_holder`, `bank_account_no`) VALUES ('$donor_name', '$nick_name','$telephone', '$reg_no','$logo','$area_city','$area_state', '$bank_name', '$account_holder','$bank_account_no')";
+            $query = $this->db->runquery($sql);
             $donor_id = $this->db->lastid();
-            foreach ($areas as $key => $area) {
-                if(!empty($area)){
-                    $query = $this->db->runquery("INSERT INTO `donor_area`(`donor_id`, `area_id`) VALUES ('$donor_id','$area')");
+
+            $area = implode("' ,'", array_unique($data['area']));
+            $this->db->runquery("DELETE FROM `donor_area` WHERE `donor_id`='$donor_id' AND `area_id` NOT IN('$area')");
+            foreach ($data['area'] as $areId) {
+                if (!empty($areId)) {
+                    $select = $this->db->runquery("SELECT * FROM `donor_area` WHERE `donor_id`='$donor_id' AND `area_id`='$areId'");
+                    if ($select->num_rows == 0) {
+                        $sql = "INSERT INTO `donor_area`(`donor_id`, `area_id`) VALUE ('$donor_id', '$areId')";
+                        $this->db->runquery($sql);
+                    }
                 }
             }
+
+            if (isset($data['help_category'])) {
+                $category = implode("'` ,'", $data['help_category']);
+                $this->db->runquery("DELETE FROM `donor_help_categories` WHERE `donor_id`='$donor_id' AND `help_category_id` NOT IN('$category')");
+                foreach ($data['help_category'] as $helpCategory) {
+                    $select = $this->db->runquery("SELECT * FROM `donor_help_categories` WHERE `donor_id`='$donor_id' AND `help_category_id`='$helpCategory'");
+                    if ($select->num_rows == 0) {
+                        $sql = "INSERT INTO `donor_help_categories`(`donor_id`, `help_category_id`) VALUE ('$donor_id', '$helpCategory')";
+                        $this->db->runquery($sql);
+                    }
+                }
+            }
+
+            for ($a = 0; $a < 5; $a++) {
+                $sql = "INSERT INTO `donor_images`(`donor_id`, `image_name`) VALUE ('$donor_id', '')";
+                $this->db->runquery($sql);
+            }
+            $images = [];
+            $selectC = $this->db->runquery("SELECT `id` FROM `donor_images` WHERE `donor_id`='$donor_id'");
+            $images = $selectC->fetch_all(MYSQLI_ASSOC);
+            foreach ($_FILES['image']['name'] as $key => $image_name) {
+                $id = $images[$key]['id'];
+                $image = $data['oldImage'][$key];
+                if (!empty($image_name)) {
+                    if (file_exists(dirname(__DIR__) . '/images/' . $image)) {
+                        unlink(dirname(__DIR__) . '/images/' . $image);
+                    }
+                    $file = $_FILES['image'];
+                    $file_ext = pathinfo($image_name, PATHINFO_EXTENSION);
+                    $image = 'donor-' . md5(time().$key) . '.' . $file_ext;
+                    move_uploaded_file($file['tmp_name'][$key], dirname(__DIR__) . '/images/' . $image);
+
+                } else {
+                    $image = $data['oldImage'][$key];
+                }
+                $sql = "UPDATE `donor_images` SET `image_name`='$image' WHERE `id`='$id'";
+                $this->db->runquery($sql);
+            }
+
+
             if ($query) {
                 $this->response['status'] = 1;
                 $this->response['type'] = 'success';
-                $this->response['message'] = 'Registered successfully';
+                $this->response['message'] = 'Donor Added successfully';
             } else {
                 $this->response['message'] = 'Something is wrong!';
                 $this->response['message'] = $this->db->con->error;
@@ -96,63 +128,105 @@ class Donor
 
     public function updateOld(array $data)
     {
+        $donor_id = $data['donor_id'];
         $donor_name = $this->db->realString($data['donor_name']);
-        // $areas = $this->db->realString($data['area']);
+        $nick_name = $this->db->realString($data['nick_name']);
+        $telephone = $this->db->realString($data['telephone']);
+        $reg_no = $this->db->realString($data['gov_reg_no']);
+        $areas = $data['area'];
         $area_city = $this->db->realString($data['area_city']);
         $area_state = $this->db->realString($data['area_state']);
-        $donate_asnaf = $this->db->realString($data['donate_asnaf']);
-        $telephone = $this->db->realString($data['telephone']);
-        $donor_id = $this->db->realString($data['donor_id']);
-        $donate_to_jalaria = $this->db->realString($data['donate_to_jalaria']);
+        $bank_name = $this->db->realString($data['bank_name']);
+        $account_holder = $this->db->realString($data['account_holder']);
+        $bank_account_no = $this->db->realString($data['bank_account_no']);
 
-       
 
         $this->response['status'] = 0;
         $this->response['type'] = 'error';
         if (empty($donor_name)) {
             $this->response['message'] = 'Please enter Donor name';
-        } elseif ($this->db->checkUniqe("donors", 'donor_name', $donor_name, 'donor_id', $donor_id)) {
-            $this->response['message'] = "Donor already exists!";
-        } elseif (empty($telephone)) {
-            $this->response['message'] = "Please enter Telephone!";
-        } elseif (empty($area)) {
-            $this->response['message'] = "Please enter Area!";
-        } elseif (empty($area_city)) {
-            $this->response['message'] = "City is required!";
-        } elseif (empty($area_state)) {
-            $this->response['message'] = "Area State is required!";
-        }else if (!empty($donate_to_jalaria)) {
-            if(!is_numeric($donate_to_jalaria)){
-                $this->response['message'] = "Donate to Jalaria must be a decimal number!";
-            }
-        } else  if (empty($donate_asnaf)) {
-            $this->response['message'] = "Donate to Asnaf is required!";
-        } else if(!empty($donate_asnaf)){
-            if(!is_numeric($donate_asnaf)){
-                $this->response['message'] = "Donate to Asnaf must be a decimal number!";
-            }
         }
-        
-        if(isset($data['items_to_donate'])){
-            $items_to_donate = implode(',', $data['items_to_donate']) ;
-        }else{
-            $items_to_donate = '' ;
+
+
+        if (isset($data['items_to_donate'])) {
+            $items_to_donate = implode(',', $data['items_to_donate']);
+        } else {
+            $items_to_donate = '';
         }
 
         if (!isset($this->response['message'])) {
-            $sql = "UPDATE `donors` SET `donor_name`='$donor_name',`telephone`='$telephone',`area_city`='$area_city',`area_state`='$area_state',`donate_asnaf`='$donate_asnaf',`items_to_donate`='$items_to_donate',`donate_to_jalaria`='$donate_to_jalaria' WHERE `donor_id`='$donor_id'";
+            $logo = $data['oldLogo'];
+            if (isset($_FILES['donor_logo']) && !empty($_FILES['donor_logo']['name'])) {
+                $file = $_FILES['donor_logo'];
+                $file_ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                if (file_exists(dirname(__DIR__) . '/images/' . $logo)) {
+                    unlink(dirname(__DIR__) . '/images/' . $logo);
+                }
+                $logo = 'donor-logo-' . md5(time()) . '.' . $file_ext;
+                move_uploaded_file($file['tmp_name'], dirname(__DIR__) . '/images/' . $logo);
+            }
+
+            $sql = "UPDATE `donors` SET `donor_name`='$donor_name', `nick_name`='$nick_name',`telephone`='$telephone', `gov_reg_no`='$reg_no', `logo`='$logo', `area_city`='$area_city',`area_state`='$area_state',`bank_name`='$bank_name',`account_holder`='$account_holder',`bank_account_no`='$bank_account_no' WHERE `donor_id`='$donor_id'";
             $query = $this->db->runquery($sql);
 
-            // $donor_id = $this->db->lastid();
-            // foreach ($areas as $key => $area) {
-            //     $query = $this->db->runquery("INSERT INTO `mosque_area`(`mosque_id`, `area_id`) VALUES ('$donor_id','$area')");
-            // }
+
+            $area = implode("' ,'", array_unique($data['area']));
+            $this->db->runquery("DELETE FROM `donor_area` WHERE `donor_id`='$donor_id' AND `area_id` NOT IN('$area')");
+            foreach ($data['area'] as $areId) {
+                if (!empty($areId)) {
+                    $select = $this->db->runquery("SELECT * FROM `donor_area` WHERE `donor_id`='$donor_id' AND `area_id`='$areId'");
+                    if ($select->num_rows == 0) {
+                        $sql = "INSERT INTO `donor_area`(`donor_id`, `area_id`) VALUE ('$donor_id', '$areId')";
+                        $this->db->runquery($sql);
+                    }
+                }
+            }
+
+            if (isset($data['help_category'])) {
+                $category = implode("'` ,'", $data['help_category']);
+                $this->db->runquery("DELETE FROM `donor_help_categories` WHERE `donor_id`='$donor_id' AND `help_category_id` NOT IN('$category')");
+                foreach ($data['help_category'] as $helpCategory) {
+                    $select = $this->db->runquery("SELECT * FROM `donor_help_categories` WHERE `donor_id`='$donor_id' AND `help_category_id`='$helpCategory'");
+                    if ($select->num_rows == 0) {
+                        $sql = "INSERT INTO `donor_help_categories`(`donor_id`, `help_category_id`) VALUE ('$donor_id', '$helpCategory')";
+                        $this->db->runquery($sql);
+                    }
+                }
+            }
+
+            for ($a = 0; $a < 5; $a++) {
+                $sql = "INSERT INTO `donor_images`(`donor_id`, `image_name`) VALUE ('$donor_id', '')";
+                $this->db->runquery($sql);
+//                echo $this->db->con->error;
+            }
+            $images = [];
+            $selectC = $this->db->runquery("SELECT `id` FROM `donor_images` WHERE `donor_id`='$donor_id'");
+            $images = $selectC->fetch_all(MYSQLI_ASSOC);
+            foreach ($_FILES['image']['name'] as $key => $image_name) {
+                $id = $images[$key]['id'];
+                $image = $data['oldImage'][$key];
+                if (!empty($image_name)) {
+                    if (file_exists(dirname(__DIR__) . '/images/' . $image)) {
+                        unlink(dirname(__DIR__) . '/images/' . $image);
+                    }
+                    $file = $_FILES['image'];
+                    $file_ext = pathinfo($image_name, PATHINFO_EXTENSION);
+                    $image = 'donor-' . md5(time().$key) . '.' . $file_ext;
+                    move_uploaded_file($file['tmp_name'][$key], dirname(__DIR__) . '/images/' . $image);
+
+                } else {
+                    $image = $data['oldImage'][$key];
+                }
+                echo $image;
+                $sql = "UPDATE `donor_images` SET `image_name`='$image' WHERE `id`='$id'";
+                $this->db->runquery($sql);
+            }
             if ($query) {
                 $this->response['status'] = 1;
                 $this->response['type'] = 'success';
-                $this->response['message'] = 'Donar Updated successfully';
+                $this->response['message'] = 'Donor Updated successfully';
             } else {
-                $this->response['message'] = 'Donar could not be updated!';
+                $this->response['message'] = 'Donor could not be updated!';
             }
         }
         return $this->response;
@@ -161,6 +235,25 @@ class Donor
     public function deleteData(array $data)
     {
         $donor_id = $data['donor_id'];
+
+        $logo = $this->db->runquery("SELECT * FROM `donors`  WHERE `donor_id`='$donor_id'")->fetch_assoc()['logo'];
+        if (file_exists(dirname(__DIR__) . '/images/' . $logo)) {
+            unlink(dirname(__DIR__) . '/images/' . $logo);
+        }
+        $selectIm = $this->db->runquery("SELECT * FROM `donor_images` WHERE `donor_id`='$donor_id'");
+        $images = $selectIm->fetch_all(MYSQLI_ASSOC);
+        foreach ($images as $key => $image) {
+            $id = $image['id'];
+            if (file_exists(dirname(__DIR__) . '/images/' . $image['image_name'])) {
+                unlink(dirname(__DIR__) . '/images/' . $image['image_name']);
+            }
+
+            $this->db->runquery("DELETE FROM `images` WHERE `id`='$id'");
+        }
+        $this->db->runquery("DELETE FROM `donor_help_categories` WHERE `donor_id`='$donor_id'");
+        $this->db->runquery("DELETE FROM `donor_area` WHERE `donor_id`='$donor_id'");
+
+
         $sql = "DELETE FROM `donors` WHERE `donor_id`='$donor_id'";
         $query = $this->db->runquery($sql);
         $this->response['status'] = 0;

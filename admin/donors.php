@@ -18,7 +18,7 @@ $count = $select->num_rows;
             <?php include_once("./partials/searchform.php") ?>
             <div id="printContent" data-title="Donors List">
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-success mr-3 addbtn" href="adduser.php">
+                    <a class="btn btn-success mr-3 addbtn" href="becomedoner.php">
                         <span class="text-white">Add</span>
                     </a>
                     <?php if ($count > 0) { ?>
@@ -30,7 +30,7 @@ $count = $select->num_rows;
                     }
                     ?>
                 </div>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 text-right p-1">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">

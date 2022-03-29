@@ -43,9 +43,9 @@ class Core
         }
     }
 
-    public function itemChecked($items, $itemarry, $value = null)
+    public function itemChecked($database_items, $itemarry, $value = null)
     {
-        foreach ($items as $key => $item) {
+        foreach ($database_items as $key => $item) {
             if ($value == null) {
                 if (!in_array($item, $itemarry)) {
                     return $item;

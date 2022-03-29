@@ -24,7 +24,7 @@ $acount = $selearea->num_rows;
                 <?php
             }
             ?>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 p-1 text-right p-0"> </div>
                     <div class="col-10 col-sm-11 p-1 p-0">
                         <div class="row mb-3">
@@ -39,14 +39,7 @@ $acount = $selearea->num_rows;
                 <?php
                  while($areas = $selearea->fetch_assoc()){
                      $area = $areas['area'];
-                     ?>
-                <div class="row">
-                    <div class="col-2 col-sm-1 p-1 text-right"> </div>
-                    <div class="col-10 col-sm-11 p-1">
-                        <p class="text-primary area"><?= $areas['area'] ?></p>
-                    </div>
-                </div>
-                <?php
+
                      $sql = "SELECT *  FROM `asnaf` INNER JOIN `all_members` ON `asnaf`.`Identification_id`=`all_members`.`Identification_id`  WHERE  `area`='$area' AND `asnaf`.`mosque_id` = '$mosque_id' ";
                      if (isset($_GET['search'])) {
                          $key = $_GET['search'];
@@ -56,6 +49,16 @@ $acount = $selearea->num_rows;
  
                      $select = $db->runquery($sql);
                      $count = $select->num_rows;
+                     if ($count > 0) {
+                     ?>
+                <div class="row">
+                    <div class="col-2 col-sm-1 p-1 text-right"> </div>
+                    <div class="col-10 col-sm-11 p-1">
+                        <p class="area"><?= $areas['area'] ?></p>
+                    </div>
+                </div>
+                <?php
+                 }
             if ($count > 0) {
                 $i = 1;
                 while ($member = $select->fetch_assoc()) {

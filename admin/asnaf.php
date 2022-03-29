@@ -27,7 +27,7 @@ $count = $select->num_rows;
                 <?php
                 }
                 ?>
-                <div class="row">
+                <div class="row columnTitle">
                     <div class="col-2 col-sm-1 p-1 text-right">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
@@ -55,12 +55,12 @@ $count = $select->num_rows;
                         $country = $row['country'];
                         $telephone = $row['telephone'];
                 ?>
-                <div class="row">
+                <div class="row" id="row<?= $asnaf_id ?>">
                     <div class="col-2 col-sm-1 p-1 text-right">
                         <?= $i . '.' ?>
                     </div>
                     <div class="col-10 col-sm-11 p-1">
-                        <div class="row mb-3" id="row<?= $asnaf_id ?>">
+                        <div class="row mb-3">
                             <div class="col-md-3"><?= $name ?></div>
                             <div class="col-md-5">
                                 <?= $address1 . ", " . $address2 . ", " . $area . ", " . $city . ", " . $postcode . ", " . $state . ", " . $country ?>
@@ -71,13 +71,14 @@ $count = $select->num_rows;
                                     class="btn btn-success">Actions</a>
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                                     aria-labelledby="asnafdropdown">
-                                    <a href="asnafdetails.php?asnaf=<?= $asnaf_id ?>" class="dropdown-item">details
-                                    </a>
+                                    <a href="new-reference.php?asnaf=<?= $asnaf_id ?>" class="dropdown-item">References</a>
+                                    <a href="asnafdetails.php?asnaf=<?= $asnaf_id ?>" class="dropdown-item">details</a>
                                     <form action="formsubmit.php" method="post" id="delete">
                                         <input type="hidden" name="asnaf_id" value="<?= $asnaf_id ?>">
                                         <input type="hidden" name="remove_asnaf" value="1">
                                         <button type="submit" class="dropdown-item">Remove Asnaf</button>
                                     </form>
+                                    <a href="javascript:void(0)" class="dropdown-item">New Donation</a>
                                 </div>
                             </div>
                         </div>

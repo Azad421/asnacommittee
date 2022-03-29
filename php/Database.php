@@ -33,7 +33,7 @@ class Database
             return $run;
         } else {
             return false;
-            return $this->con->error;
+            $this->con->error;
         }
     }
     public function realString($data)

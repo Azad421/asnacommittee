@@ -9,6 +9,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="<?= URL ?>vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="<?= URL ?>vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="<?= URL ?>vendors/dropify/dist/css/dropify.min.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="<?= URL ?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -28,6 +29,7 @@
     <script src="<?= URL ?>js/loader.js"></script>
     <script src="<?= URL ?>js/off-canvas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="<?= URL ?>vendors/dropify/dist/js/dropify.min.js"></script>
 </head>
 
 <body>
