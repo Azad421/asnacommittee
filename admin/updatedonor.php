@@ -129,7 +129,11 @@ $donate_to_jalaria = $row['donate_to_jalaria'];
                                     ?>
                             </select>
                         </div>
-
+                        <div class="form-group">
+                            <label for="donate_details">Details Donation</label>
+                            <input type="text" id="donate_details" name="donate_details" class="form-control"
+                                   placeholder="Details Donation" value="<?= $row['donate_details'] ?>">
+                        </div>
                         <div class="form-group">
                             <label>Please insert 5 images below</label>
                             <div class="row">

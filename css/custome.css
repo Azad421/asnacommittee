@@ -202,3 +202,6 @@ label.form-label {
 .sidebar .nav .nav-item.active > .nav-link {
   background: #A514A5;
 }
+.select2-container .select2-selection--single {
+  height: unset !important;
+}

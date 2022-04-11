@@ -67,33 +67,14 @@ class User
             $this->response['message'] = "User name must be Alphabetical";
         } elseif ($this->db->checkUniqe("all_members", 'name', $name)) {
             $this->response['message'] = "User already exists!";
-        } elseif (empty($address1)) {
-            $this->response['message'] = "Must enter Address 1!";
-        } elseif (empty($address2)) {
-            $this->response['message'] = "Must enter Address 1!";
-        } elseif (empty($area)) {
-            $this->response['message'] = "Please enter Area!";
-        } elseif (empty($city)) {
-            $this->response['message'] = "City is required!";
-        } elseif (empty($postcode)) {
-            $this->response['message'] = "Post code is required!";
-        } elseif (empty($state)) {
-            $this->response['message'] = "State is required!";
-        } elseif (empty($country)) {
-            $this->response['message'] = "Please enter Country!";
-        } elseif (empty($telephone)) {
-            $this->response['message'] = "Telephone is required!";
-        } elseif (empty($start_collect)) {
-            $this->response['message'] = "Start Collect Date is required!";
-        } elseif (empty($end_collect)) {
-            $this->response['message'] = "End Collect Date is required!";
-        } elseif (empty($help_needed)) {
-            $this->response['message'] = "Help Needed is required!";
         }
 
 
         if (empty($birth_date)) {
             $birth_date = date("Y-m-d", strtotime('01-01-0001'));
+        }
+        if (empty($mosque_id)) {
+            $mosque_id = 0;
         }
 
 
@@ -140,7 +121,7 @@ class User
                 $this->response['message'] = 'User added successfully';
             } else {
                 $this->response['message'] = 'User could not be saved!';
-//                $this->response['message'] = $this->db->con->error;
+                $this->response['message'] = $this->db->con->error;
             }
         }
         return $this->response;
@@ -250,30 +231,13 @@ class User
             $this->response['message'] = "User name must be Alphabetical";
         } elseif ($this->db->checkUniqe("all_members", 'name', $name, 'Identification_id', $Identification_id)) {
             $this->response['message'] = "User already exists!";
-        } elseif (empty($address1)) {
-            $this->response['message'] = "Must enter Address 1!";
-        } elseif (empty($address2)) {
-            $this->response['message'] = "Must enter Address 1!";
-        } elseif (empty($area)) {
-            $this->response['message'] = "Please enter Area!";
-        } elseif (empty($city)) {
-            $this->response['message'] = "City is required!";
-        } elseif (empty($postcode)) {
-            $this->response['message'] = "Post code is required!";
-        } elseif (empty($country)) {
-            $this->response['message'] = "Please enter Country!";
-        } elseif (empty($telephone)) {
-            $this->response['message'] = "Telephone is required!";
-        } elseif (empty($birth_date)) {
-            $this->response['message'] = "Birth Date is required!";
-        } elseif (empty($convert_date)) {
-            $this->response['message'] = "Convert Date is required!";
-        } elseif (empty($start_collect)) {
-            $this->response['message'] = "Start Collect Date is required!";
-        } elseif (empty($end_collect)) {
-            $this->response['message'] = "End Collect Date is required!";
-        } elseif (empty($help_needed)) {
-            $this->response['message'] = "Help Needed is required!";
+        }
+
+        if (empty($birth_date)) {
+            $birth_date = date("Y-m-d", strtotime('01-01-0001'));
+        }
+        if (empty($mosque_id)) {
+            $mosque_id = 0;
         }
 
 
@@ -326,7 +290,7 @@ class User
                 $this->response['status'] = 1;
                 $this->response['type'] = 'success';
                 $this->response['url'] = 'members.php';
-                $this->response['message'] = 'User Upadated successfully';
+                $this->response['message'] = 'User Updated successfully';
             } else {
                 $this->response['message'] = 'User could not be Updated!';
             }

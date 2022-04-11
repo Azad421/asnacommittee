@@ -58,4 +58,18 @@ class Core
         }
         return false;
     }
+
+    public function postChecked($attr, $value = null)
+    {
+        if ($value != null) {
+            $array = [];
+            foreach ($_POST[$attr] as $item){
+                $array[] = $item;
+            }
+            if (in_array($value, $array)) {
+                return 'checked';
+            }
+        }
+        return false;
+    }
 }

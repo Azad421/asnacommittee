@@ -28,6 +28,7 @@ class Donor
         $bank_name = $this->db->realString($data['bank_name']);
         $account_holder = $this->db->realString($data['account_holder']);
         $bank_account_no = $this->db->realString($data['bank_account_no']);
+        $donate_details = $this->db->realString($data['donate_details']);
 
         $this->response['status'] = 0;
         $this->response['type'] = 'error';
@@ -59,7 +60,7 @@ class Donor
                 $logo = 'donor-logo-' . md5(time()) . '.' . $file_ext;
                 move_uploaded_file($file['tmp_name'], dirname(__DIR__) . '/images/' . $logo);
             }
-            $sql = "INSERT INTO `donors`(`donor_name`, `nick_name`, `telephone`, `gov_reg_no`, `logo`,`area_city`, `area_state`, `bank_name`, `account_holder`, `bank_account_no`) VALUES ('$donor_name', '$nick_name','$telephone', '$reg_no','$logo','$area_city','$area_state', '$bank_name', '$account_holder','$bank_account_no')";
+            $sql = "INSERT INTO `donors`(`donor_name`, `nick_name`, `telephone`, `gov_reg_no`, `logo`,`area_city`, `area_state`, `donate_details`, `bank_name`, `account_holder`, `bank_account_no`) VALUES ('$donor_name', '$nick_name','$telephone', '$reg_no','$logo','$area_city','$area_state', '$donate_details', '$bank_name', '$account_holder','$bank_account_no')";
             $query = $this->db->runquery($sql);
             $donor_id = $this->db->lastid();
 
@@ -139,6 +140,7 @@ class Donor
         $bank_name = $this->db->realString($data['bank_name']);
         $account_holder = $this->db->realString($data['account_holder']);
         $bank_account_no = $this->db->realString($data['bank_account_no']);
+        $donate_details = $this->db->realString($data['donate_details']);
 
 
         $this->response['status'] = 0;
@@ -166,7 +168,7 @@ class Donor
                 move_uploaded_file($file['tmp_name'], dirname(__DIR__) . '/images/' . $logo);
             }
 
-            $sql = "UPDATE `donors` SET `donor_name`='$donor_name', `nick_name`='$nick_name',`telephone`='$telephone', `gov_reg_no`='$reg_no', `logo`='$logo', `area_city`='$area_city',`area_state`='$area_state',`bank_name`='$bank_name',`account_holder`='$account_holder',`bank_account_no`='$bank_account_no' WHERE `donor_id`='$donor_id'";
+            $sql = "UPDATE `donors` SET `donor_name`='$donor_name', `nick_name`='$nick_name',`telephone`='$telephone', `gov_reg_no`='$reg_no', `logo`='$logo', `area_city`='$area_city',`area_state`='$area_state', `donate_details`='$donate_details',`bank_name`='$bank_name',`account_holder`='$account_holder',`bank_account_no`='$bank_account_no' WHERE `donor_id`='$donor_id'";
             $query = $this->db->runquery($sql);
 
 
@@ -217,7 +219,6 @@ class Donor
                 } else {
                     $image = $data['oldImage'][$key];
                 }
-                echo $image;
                 $sql = "UPDATE `donor_images` SET `image_name`='$image' WHERE `id`='$id'";
                 $this->db->runquery($sql);
             }

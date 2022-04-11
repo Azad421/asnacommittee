@@ -5,6 +5,7 @@ $title = "Asnaf Commitee";
 include('./partials/header.php');
 if(isset($_POST['add_user'])){
     $response = $user->saveNewUser($_POST);
+//    print_r($response);
     $response = json_encode($response);
     ?>
     <script>
@@ -41,7 +42,7 @@ if(isset($_POST['add_user'])){
                                 if ($select->num_rows > 0) {
                                     while ($row = $select->fetch_assoc()) {
                                         ?>
-                                        <option value="<?= $row['mosque_id'] ?>"><?= $row['mosque_name'] ?></option>
+                                        <option value="<?= $row['mosque_id'] ?>" <?= $core->postSelected('mosque_id', $row['mosque_id']) ?>><?= $row['mosque_name'] ?></option>
                                         <?php
                                     }
                                 }
@@ -51,12 +52,12 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="address1">Address 2</label>
                             <input type="text" class="form-control" id="address1" name="address1"
-                                   placeholder="Address 1">
+                                   placeholder="Address 1" value="<?= $core->valuepost('address1') ?>">
                         </div>
                         <div class="form-group">
                             <label for="address2">Address 2</label>
                             <input type="text" class="form-control" id="address2" name="address2"
-                                   placeholder="Address 2">
+                                   placeholder="Address 2" value="<?= $core->valuepost('address2') ?>">
                         </div>
                         <div class="form-group">
                             <label for="area">Select Area</label>
@@ -68,7 +69,7 @@ if(isset($_POST['add_user'])){
                                 if ($select->num_rows > 0) {
                                     while ($row = $select->fetch_assoc()) {
                                         ?>
-                                        <option value="<?= $row['area_id'] ?>"><?= $row['area_name'] ?></option>
+                                        <option value="<?= $row['area_id'] ?>" <?= $core->postSelected('area', $row['area_id']) ?>><?= $row['area_name'] ?></option>
                                         <?php
                                     }
                                 }
@@ -85,7 +86,7 @@ if(isset($_POST['add_user'])){
                                 if ($select->num_rows > 0) {
                                     while ($row = $select->fetch_assoc()) {
                                         ?>
-                                        <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                                        <option value="<?= $row['id'] ?>" <?= $core->postSelected('city', $row['id']) ?>><?= $row['name'] ?></option>
                                         <?php
                                     }
                                 }
@@ -95,7 +96,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="postcode">Post Code</label>
                             <input type="text" id="postcode" name="postcode" class="form-control"
-                                   placeholder="Post Code">
+                                   placeholder="Post Code" value="<?= $core->valuepost('postcode') ?>">
                         </div>
                         <div class="form-group">
                             <label for="state">Select State</label>
@@ -107,7 +108,7 @@ if(isset($_POST['add_user'])){
                                 if ($select->num_rows > 0) {
                                     while ($row = $select->fetch_assoc()) {
                                         ?>
-                                        <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                                        <option value="<?= $row['id'] ?>" <?= $core->postSelected('state', $row['id']) ?>><?= $row['name'] ?></option>
                                         <?php
                                     }
                                 }
@@ -116,12 +117,12 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
-                            <input type="text" id="country" name="country" class="form-control" placeholder="Country">
+                            <input type="text" id="country" name="country" class="form-control" placeholder="Country" value="<?= $core->valuepost('country') ?>">
                         </div>
                         <div class="form-group">
                             <label for="telephone">Telephone</label>
                             <input type="text" id="telephone" name="telephone" class="form-control"
-                                   placeholder="Telephone">
+                                   placeholder="Telephone" value="<?= $core->valuepost('telephone') ?>">
                         </div>
                         <div class="form-group">
                             <label for="id_type">ID Type</label>
@@ -130,7 +131,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($idtypes as $key => $idtype) {
                                     ?>
-                                    <option value="<?= $idtype ?>"><?= $idtype ?></option>
+                                    <option value="<?= $idtype ?>" <?= $core->postSelected('id_type', $idtype) ?>><?= $idtype ?></option>
                                     <?php
                                 }
                                 ?>
@@ -138,27 +139,27 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="id_no">ID No</label>
-                            <input type="text" id="id_no" name="id_no" class="form-control" placeholder="ID No">
+                            <input type="text" id="id_no" name="id_no" class="form-control" placeholder="ID No" value="<?= $core->valuepost('id_no') ?>">
                         </div>
                         <div class="form-group">
                             <label for="id_international">ID International</label>
                             <input type="text" id="id_international" name="id_international" class="form-control"
-                                   placeholder="ID International">
+                                   placeholder="ID International" value="<?= $core->valuepost('id_international') ?>">
                         </div>
                         <div class="form-group">
                             <label for="birth_date">Birth Date</label>
                             <input type="date" id="birth_date" name="birth_date" class="form-control"
-                                   placeholder="Birth Date">
+                                   placeholder="Birth Date" value="<?= $core->valuepost('birth_date') ?>">
                         </div>
                         <div class="form-group">
                             <label for="birth_state">Birth State</label>
                             <input type="text" id="birth_state" name="birth_state" class="form-control"
-                                   placeholder="Birth State">
+                                   placeholder="Birth State" value="<?= $core->valuepost('birth_state') ?>">
                         </div>
                         <div class="form-group">
                             <label for="birth_country">Birth Country</label>
                             <input type="text" id="birth_country" name="birth_country" class="form-control"
-                                   placeholder="Birth Country">
+                                   placeholder="Birth Country" value="<?= $core->valuepost('birth_country') ?>">
                         </div>
                         <div class="form-group">
                             <label for="married_status">Married Status</label>
@@ -167,7 +168,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($marriedstatus as $key => $status) {
                                     ?>
-                                    <option value="<?= $status ?>"><?= $status ?></option>
+                                    <option value="<?= $status ?>" <?= $core->postSelected('id_type', $idtype) ?>><?= $status ?></option>
                                     <?php
                                 }
                                 ?>
@@ -176,12 +177,12 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="convert_date">Convert Date</label>
                             <input type="date" id="convert_date" name="convert_date" class="form-control"
-                                   placeholder="Convert Date">
+                                   placeholder="Convert Date" value="<?= $core->valuepost('convert_date') ?>">
                         </div>
                         <div class="form-group">
                             <label for="citizenship">Citizenship</label>
                             <input type="text" id="citizenship" name="citizenship" class="form-control"
-                                   placeholder="Citizenship">
+                                   placeholder="Citizenship" value="<?= $core->valuepost('citizenship') ?>">
                         </div>
 <!--                        <div class="form-group">-->
 <!--                            <label for="state_since">State Since</label>-->
@@ -195,7 +196,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($races as $key => $race) {
                                     ?>
-                                    <option value="<?= $race ?>"><?= $race ?></option>
+                                    <option value="<?= $race ?>" <?= $core->postSelected('race', $race) ?>><?= $race ?></option>
                                     <?php
                                 }
                                 ?>
@@ -204,7 +205,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="religion">Religion</label>
                             <input type="text" id="religion" name="religion" class="form-control"
-                                   placeholder="Religion">
+                                   placeholder="Religion" value="<?= $core->valuepost('religion') ?>">
                         </div>
 <!--                        <div class="form-group">-->
 <!--                            <label for="edu">Education</label>-->
@@ -448,7 +449,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="basic_skills_others">Basic Skills Others</label>
                             <input type="text" id="basic_skills_others" name="basic_skills_others" class="form-control"
-                                   placeholder="Basic Skills Others">
+                                   placeholder="Basic Skills Others" value="<?= $core->valuepost('basic_skills_others') ?>">
                         </div>
 <!--                        <div class="form-group">-->
 <!--                            <label for="liquid_assets">Liquid Assets</label>-->
@@ -463,7 +464,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="family_head_name">Family Head Name</label>
                             <input type="text" id="family_head_name" name="family_head_name" class="form-control"
-                                   placeholder="Family Head Name">
+                                   placeholder="Family Head Name" value="<?= $core->valuepost('family_head_name') ?>">
                         </div>
                         <div class="form-group">
                             <label for="head_id_type">Head ID Type</label>
@@ -472,7 +473,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($idtypes as $key => $idtype) {
                                     ?>
-                                    <option value="<?= $idtype ?>"><?= $idtype ?></option>
+                                    <option value="<?= $idtype ?>" <?= $core->postSelected('head_id_type', $idtype) ?>><?= $idtype ?></option>
                                     <?php
                                 }
                                 ?>
@@ -481,7 +482,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="head_id_no">Head ID No</label>
                             <input type="text" id="head_id_no" name="head_id_no" class="form-control"
-                                   placeholder="Head ID No">
+                                   placeholder="Head ID No" value="<?= $core->valuepost('head_id_no') ?>">
                         </div>
                         <div class="form-group">
                             <label for="family_head_relation">Family Head Relation</label>
@@ -490,7 +491,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($family_head_relations as $key => $family_head_relation) {
                                     ?>
-                                    <option value="<?= $family_head_relation ?>"><?= $family_head_relation ?></option>
+                                    <option value="<?= $family_head_relation ?>" <?= $core->postSelected('family_head_relation', $family_head_relation) ?>><?= $family_head_relation ?></option>
                                     <?php
                                 }
                                 ?>
@@ -499,7 +500,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="family_head_relation_other">Family Head Relation Other</label>
                             <input type="text" id="family_head_relation_other" name="family_head_relation_other"
-                                   class="form-control" placeholder="Family Head Relation Other">
+                                   class="form-control" placeholder="Family Head Relation Other" value="<?= $core->valuepost('family_head_relation_other') ?>">
                         </div>
                         <div class="form-group">
                             <label for="pay_method">Pay Method</label>
@@ -508,7 +509,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($pay_methods as $key => $pay_method) {
                                     ?>
-                                    <option value="<?= $pay_method ?>"><?= $pay_method ?></option>
+                                    <option value="<?= $pay_method ?>" <?= $core->postSelected('pay_method', $pay_method) ?>><?= $pay_method ?></option>
                                     <?php
                                 }
                                 ?>
@@ -521,7 +522,7 @@ if(isset($_POST['add_user'])){
                                 <?php
                                 foreach ($pay_method_reasons as $key => $pay_method_reason) {
                                     ?>
-                                    <option value="<?= $pay_method_reason ?>"><?= $pay_method_reason ?></option>
+                                    <option value="<?= $pay_method_reason ?>" <?= $core->postSelected('pay_method_reason', $pay_method_reason) ?>><?= $pay_method_reason ?></option>
                                     <?php
                                 }
                                 ?>
@@ -530,42 +531,42 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="bank_name">Bank Name</label>
                             <input type="text" id="bank_name" name="bank_name" class="form-control"
-                                   placeholder="Bank Name">
+                                   placeholder="Bank Name" value="<?= $core->valuepost('bank_name') ?>">
                         </div>
                         <div class="form-group">
                             <label for="bank_account_no">Bank Account No</label>
                             <input type="text" id="bank_account_no" name="bank_account_no" class="form-control"
-                                   placeholder="Bank Account No">
+                                   placeholder="Bank Account No" value="<?= $core->valuepost('bank_account_no') ?>">
                         </div>
                         <div class="form-group">
                             <label for="bank_account_holder_name">Bank Account Holder Name</label>
                             <input type="text" id="bank_account_holder_name" name="bank_account_holder_name"
-                                   class="form-control" placeholder="Bank Account Holder Name">
+                                   class="form-control" placeholder="Bank Account Holder Name" value="<?= $core->valuepost('bank_account_holder_name') ?>">
                         </div>
                         <div class="form-group">
                             <label for="notes">Notes</label>
                             <textarea name="notes" class="form-control" id="notes" rows="3"
-                                      placeholder="Notes"></textarea>
+                                      placeholder="Notes"><?= $core->valuepost('notes') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="life_condition">life condition</label>
                             <input type="text" id="life_condition" name="life_condition" class="form-control"
-                                   placeholder="life condition">
+                                   placeholder="life condition" value="<?= $core->valuepost('life_condition') ?>">
                         </div>
                         <div class="form-group">
                             <label for="nick_name">Nick Name</label>
                             <input type="text" id="nick_name" name="nick_name" class="form-control"
-                                   placeholder="Nick Name">
+                                   placeholder="Nick Name" value="<?= $core->valuepost('nick_name') ?>">
                         </div>
                         <div class="form-group">
                             <label for="income_explain">Income Explain</label>
                             <textarea id="income_explain" name="income_explain" class="form-control" rows="3"
-                                      placeholder="Income Explain"></textarea>
+                                      placeholder="Income Explain"><?= $core->valuepost('income_explain') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="planned_action">Planned Action</label>
                             <input type="text" id="planned_action" name="planned_action" class="form-control"
-                                   placeholder="Planned Action">
+                                   placeholder="Planned Action" value="<?= $core->valuepost('planned_action') ?>">
                         </div>
                         <div class="form-group">
                             <label for="help_category">Help Category</label>
@@ -580,7 +581,7 @@ if(isset($_POST['add_user'])){
                                             <label for="<?= $row['name'] ?>" class="form-label">
                                                 <input type="checkbox" class="mr-2" name="help_category[]"
                                                        id="<?= $row['name'] ?>"
-                                                       value="<?= $row['id'] ?>">
+                                                       value="<?= $row['id'] ?>" <?= $core->postChecked('help_category', $row['id']) ?>>
                                                 <span><?= $row['name'] ?></span>
                                             </label>
                                         </div>
@@ -593,7 +594,7 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="help_needed">Help Needed</label>
                             <input type="text" id="help_needed" name="help_needed" class="form-control"
-                                   placeholder="Help Needed">
+                                   placeholder="Help Needed" value="<?= $core->valuepost('help_needed') ?>">
                         </div>
                         <div class="form-group">
                             <label>Please insert 5 images below</label>
@@ -623,12 +624,12 @@ if(isset($_POST['add_user'])){
                         <div class="form-group">
                             <label for="date_start_donation">Date Start Donation</label>
                             <input type="date" id="date_start_donation" name="date_start_donation" class="form-control"
-                                   placeholder="Date Start Donation">
+                                   placeholder="Date Start Donation" value="<?= $core->valuepost('date_start_donation') ?>">
                         </div>
                         <div class="form-group">
                             <label for="date_end_donation">Date End Donation</label>
                             <input type="date" id="date_end_donation" name="date_end_donation" class="form-control"
-                                   placeholder="Date End Donation">
+                                   placeholder="Date End Donation" value="<?= $core->valuepost('date_end_donation') ?>">
                         </div>
                         <input type="hidden" name="add_user" value="1">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>

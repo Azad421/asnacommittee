@@ -19,7 +19,7 @@ if (isset($_POST['update_user'])) {
         toastr[response.type](response.message);
         if (response.status == 1) {
             setTimeout(() => {
-                // window.location.href = "members.php";
+                window.location.href = "members.php";
             }, 3000);
         }
     </script>
@@ -97,7 +97,7 @@ $nick_name = $user['nick_name'] ?? "";
 $life_condition = $user['life_condition'] ?? "";
 $notes = $user['notes'] ?? "";
 $selectD = $db->runquery("SELECT * FROM `donation_project` WHERE `member_id`='$Identification_id'");
-if($selectD->num_rows> 0){
+if ($selectD->num_rows > 0) {
     $donation_project = $selectD->fetch_assoc();
 }
 ?>
@@ -145,14 +145,38 @@ if($selectD->num_rows> 0){
                             </div>
                             <div class="form-group">
                                 <label for="area">Select Area</label>
-                                <input type="text" id="area" name="area" class="form-control" value="<?= $area ?>"
-                                       placeholder="Area">
+                                <select name="area" class="form-control py-3 select2" id="area">
+                                    <option value="">Select Area</option>
+                                    <?php
+                                    $sql = "SELECT * FROM `mosque_areas`";
+                                    $select = $db->runquery($sql);
+                                    if ($select->num_rows > 0) {
+                                        while ($row = $select->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?= $row['area_id'] ?>" <?= $core->itemSelected($area, $row['area_id']) ?>><?= $row['area_name'] ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
 
                             </div>
                             <div class="form-group">
                                 <label for="city">Select City</label>
-                                <input type="text" id="city" name="city" class="form-control" value="<?= $city ?>"
-                                       placeholder="City">
+                                <select name="city" class="form-control py-3 select2" id="city">
+                                    <option value="">Select City</option>
+                                    <?php
+                                    $sql = "SELECT * FROM `cities`";
+                                    $select = $db->runquery($sql);
+                                    if ($select->num_rows > 0) {
+                                        while ($row = $select->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?= $row['id'] ?>" <?= $core->itemSelected($city, $row['id']) ?>><?= $row['name'] ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="postcode">Post Code</label>
@@ -169,7 +193,7 @@ if($selectD->num_rows> 0){
                                     if ($select->num_rows > 0) {
                                         while ($row = $select->fetch_assoc()) {
                                             ?>
-                                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                                            <option value="<?= $row['id'] ?>" <?= $core->itemSelected($state, $row['id']) ?>><?= $row['name'] ?></option>
                                             <?php
                                         }
                                     }
@@ -274,7 +298,7 @@ if($selectD->num_rows> 0){
                             <div class="form-group">
                                 <label for="religion">Religion</label>
                                 <input type="text" id="religion" name="religion" class="form-control"
-                                       placeholder="Religion">
+                                       placeholder="Religion" value="<?= $user['religion'] ?>">
                             </div>
 
                             <div class="form-group">
@@ -410,9 +434,8 @@ if($selectD->num_rows> 0){
                             </div>
                             <div class="form-group">
                                 <label for="income_explain">Income Explain</label>
-                                <textarea id="income_explain" name="income_explain"
-                                          value="<?= $user['income_explain'] ?>" class="form-control" rows="3"
-                                          placeholder="Income Explain"></textarea>
+                                <textarea id="income_explain" name="income_explain"class="form-control" rows="3"
+                                          placeholder="Income Explain"><?= $user['income_explain']??'' ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="planned_action">Planned Action</label>
@@ -473,24 +496,39 @@ if($selectD->num_rows> 0){
                                     }
                                     ?>
                                     <div class="col-12 col-sm-6 col-lg-4 mb-3">
-                                        <input type="file" name="image[]" data-default-file="<?= empty($images[0]['image_name'])?'':URL.'images/'.$images[0]['image_name'] ?>" class="dropify">
-                                        <input type="hidden" name="oldImage[]" value="<?= $images[0]['image_name']??'' ?>">
+                                        <input type="file" name="image[]"
+                                               data-default-file="<?= empty($images[0]['image_name']) ? '' : URL . 'images/' . $images[0]['image_name'] ?>"
+                                               class="dropify">
+                                        <input type="hidden" name="oldImage[]"
+                                               value="<?= $images[0]['image_name'] ?? '' ?>">
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4 mb-3">
-                                        <input type="file" name="image[]" data-default-file="<?= empty($images[1]['image_name'])?'':URL.'images/'.$images[1]['image_name'] ?>" class="dropify">
-                                        <input type="hidden" name="oldImage[]" value="<?= $images[1]['image_name']??'' ?>">
+                                        <input type="file" name="image[]"
+                                               data-default-file="<?= empty($images[1]['image_name']) ? '' : URL . 'images/' . $images[1]['image_name'] ?>"
+                                               class="dropify">
+                                        <input type="hidden" name="oldImage[]"
+                                               value="<?= $images[1]['image_name'] ?? '' ?>">
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4 mb-3">
-                                        <input type="file" name="image[]" data-default-file="<?= empty($images[2]['image_name'])?'':URL.'images/'.$images[2]['image_name'] ?>" class="dropify">
-                                        <input type="hidden" name="oldImage[]" value="<?= $images[2]['image_name']??'' ?>">
+                                        <input type="file" name="image[]"
+                                               data-default-file="<?= empty($images[2]['image_name']) ? '' : URL . 'images/' . $images[2]['image_name'] ?>"
+                                               class="dropify">
+                                        <input type="hidden" name="oldImage[]"
+                                               value="<?= $images[2]['image_name'] ?? '' ?>">
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4 mb-3">
-                                        <input type="file" name="image[]" data-default-file="<?= empty($images[3]['image_name'])?'':URL.'images/'.$images[3]['image_name'] ?>" class="dropify">
-                                        <input type="hidden" name="oldImage[]" value="<?= $images[3]['image_name']??'' ?>">
+                                        <input type="file" name="image[]"
+                                               data-default-file="<?= empty($images[3]['image_name']) ? '' : URL . 'images/' . $images[3]['image_name'] ?>"
+                                               class="dropify">
+                                        <input type="hidden" name="oldImage[]"
+                                               value="<?= $images[3]['image_name'] ?? '' ?>">
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4 mb-3">
-                                        <input type="file" name="image[]" data-default-file="<?= empty($images[4]['image_name'])?'':URL.'images/'.$images[4]['image_name'] ?>" class="dropify">
-                                        <input type="hidden" name="oldImage[]" value="<?= $images[4]['image_name']??'' ?>">
+                                        <input type="file" name="image[]"
+                                               data-default-file="<?= empty($images[4]['image_name']) ? '' : URL . 'images/' . $images[4]['image_name'] ?>"
+                                               class="dropify">
+                                        <input type="hidden" name="oldImage[]"
+                                               value="<?= $images[4]['image_name'] ?? '' ?>">
                                     </div>
                                 </div>
                             </div>

@@ -32,7 +32,7 @@ $row = $select->fetch_assoc()
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
-                            <input type="text" class="form-control" name="country" value="<?= $row['source'] ?>" id="country"
+                            <input type="text" class="form-control" name="country" value="<?= $row['country'] ?>" id="country"
                                    placeholder="Country">
                         </div>
                         <div class="form-group">

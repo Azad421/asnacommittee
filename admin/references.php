@@ -1,13 +1,14 @@
 <?php
 require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Committee - Members";
-$sql = "SELECT `asnaf_references`.`id`, `all_members`.`name` AS name, `references_material`.`name` AS material_type, `source`, `title`,`asnaf_references`.`country`,`status_record` FROM `asnaf_references` INNER JOIN `references_material` ON `asnaf_references`.`material_type`=`references_material`.`id` INNER JOIN `asnaf` ON `asnaf_references`.`asnaf_id`=`asnaf`.`asnaf_id` INNER JOIN `all_members` ON `all_members`.`Identification_id`=`asnaf`.`Identification_id` ";
+$title = "Asnaf Committee - References";
+$sql = "SELECT `asnaf_references`.`id`, `m`.`name` AS name, `m`.`nick_name` AS nick_name, `references_material`.`name` AS `material_type`, `source`, `title`,`asnaf_references`.`country`,`status_record` FROM `asnaf_references` INNER JOIN `references_material` ON `asnaf_references`.`material_type`=`references_material`.`id` INNER JOIN `asnaf` ON `asnaf_references`.`asnaf_id`=`asnaf`.`asnaf_id` INNER JOIN `all_members` as m ON `m`.`Identification_id`=`asnaf`.`Identification_id` ";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $key = $_GET['search'];
-    $sql .= "WHERE CONCAT_WS( `source`, `material_type`, `title`, `doc_page`, ``.`country`, `expiry_date`, `status_record`) LIKE '%$key%'";
+    $sql .= "WHERE CONCAT_WS( `m`.`name`, `m`.`nick_name`, `source`, `references_material`.`name`, `title`, `asnaf_references`.`country`) LIKE '%$key%'";
 }
 $select = $db->runquery($sql);
+echo $db->con->error;
 $count = $select->num_rows;
 include_once('./partials/header.php');
 ?>
@@ -17,9 +18,6 @@ include_once('./partials/header.php');
                 <?php include_once("./partials/searchform.php") ?>
                 <div id="printContent" data-title="Asnaf Members List">
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-success mr-3 addbtn" href="new-reference.php">
-                            <span class="text-white">Add</span>
-                        </a>
                         <?php if ($count > 0) { ?>
                             <a class="btn btn-success printbtn" onclick="printDiv('printContent')">
                                 <span class="text-white">Print</span>
@@ -46,7 +44,7 @@ include_once('./partials/header.php');
                                 <div class="col-md-2">
                                     Country
                                 </div>
-                                <div class="col-md-2">Action</div>
+                                <div class="col-md-2"></div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +81,7 @@ include_once('./partials/header.php');
                                             <?= $title ?>
                                         </div>
                                         <div class="col-md-2"><?= $country ?></div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 save_as">
                                             <a href="javascript:" data-toggle="dropdown" id="asnafdropdown"
                                                class="btn btn-success">Action</a>
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"

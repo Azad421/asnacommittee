@@ -102,6 +102,11 @@ if(isset($_POST['add_donor'])){
 
                         </div>
                         <div class="form-group">
+                            <label for="donate_details">Details Donation</label>
+                            <input type="text" id="donate_details" name="donate_details" class="form-control"
+                                   placeholder="Details Donation">
+                        </div>
+                        <div class="form-group">
                             <label>Please insert 5 images below</label>
                             <div class="row">
                                 <div class="col-12 col-sm-6 col-lg-4 mb-3">

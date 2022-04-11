@@ -53,18 +53,18 @@ $page = end($pages);
                     <span class="menu-title">Donors</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="donors_loc_public.php">
-                    <i class="mdi mdi-account menu-icon"></i>
-                    <span class="menu-title">Donor By Location</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="becomedoner.php">
-                    <i class="mdi mdi-account menu-icon"></i>
-                    <span class="menu-title">Become a doner</span>
-                </a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="donors_loc_public.php">-->
+<!--                    <i class="mdi mdi-account menu-icon"></i>-->
+<!--                    <span class="menu-title">Donor By Location</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="becomedoner.php">-->
+<!--                    <i class="mdi mdi-account menu-icon"></i>-->
+<!--                    <span class="menu-title">Become a doner</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link" href="reportasnaf.php">
                     <i class="mdi mdi-account menu-icon"></i>

@@ -34,10 +34,11 @@ $count = $select->num_rows;
                     <div class="col-2 col-sm-1 text-right p-1">No</div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
-                            <div class="col-md-3">Donor Name</div>
+                            <div class="col-md-2">Donor Name</div>
                             <div class="col-md-2">Telephone</div>
                             <div class="col-md-2">Area</div>
-                            <div class="col-md-3">Area State</div>
+                            <div class="col-md-2">Area City</div>
+                            <div class="col-md-2">Area State</div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +62,7 @@ $count = $select->num_rows;
                     </div>
                     <div class="col-10 col-sm-11 p-1">
                         <div class="row mb-3">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <?= $donor_name ?>
                             </div>
                             <div class="col-md-2"><?= $telephone ?></div>
@@ -75,7 +76,10 @@ $count = $select->num_rows;
                                         }
                                     ?>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <?= $area_city ?>
+                            </div>
+                            <div class="col-md-2">
                                 <?= $area_state ?>
                             </div>
                             <div class="col-md-2 save_as">

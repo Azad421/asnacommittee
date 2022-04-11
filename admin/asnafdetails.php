@@ -117,12 +117,12 @@ $name = $row['name'];
                 <div class="row mb-3">
                     <div class="col-1"></div>
                     <div class="col-sm-3">Area :</div>
-                    <div class="col-sm-7"> <?= $area ?></div>
+                    <div class="col-sm-7"> <?= is_numeric($area)?$db->runquery("SELECT * FROM `mosque_areas` WHERE `area_id`='$area'")->fetch_assoc()['area_name']:$area ?></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-1"></div>
                     <div class="col-sm-3">State :</div>
-                    <div class="col-sm-7"> <?= $state ?></div>
+                    <div class="col-sm-7"> <?= is_numeric($state)?$db->runquery("SELECT * FROM `states` WHERE `id`='$state'")->fetch_assoc()['name']:$state ?></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-1"></div>
