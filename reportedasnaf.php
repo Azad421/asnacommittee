@@ -1,7 +1,7 @@
 <?php
 require_once("./php/autoload.php");
 include('partials/checkloggedin.php');
-$title = "Asnaf Commitee - Reported Asnaf";
+$title = "Jalaria - Reported Asnaf";
 include('partials/header.php');
 
 $selectarea = $db->runquery("SELECT * FROM `mosque_area` INNER JOIN `mosque_areas` ON `mosque_area`.`area_id`=`mosque_areas`.`area_id` WHERE `mosque_id`= '$mosque_id' ORDER BY `area_name` ASC");

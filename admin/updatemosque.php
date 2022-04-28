@@ -1,7 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Add Mosque";
+$title = "Jalaria Admin - Update Mosque";
 include('./partials/header.php');
 if (!isset($_GET['mosque'])) {
     header("location:mosque.php");

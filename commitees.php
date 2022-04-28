@@ -1,7 +1,7 @@
 <?php
 include_once("./php/autoload.php");
 include('partials/checkloggedin.php');
-$title = "Asnaf Commitee";
+$title = "Jalaria Committees";
 include('partials/header.php');
 
 $sql = "SELECT * FROM `commitee` INNER JOIN `all_members` ON `commitee`.`Identification_id`=`all_members`.`Identification_id`  WHERE `commitee`.`mosque_id` = $mosque_id ";

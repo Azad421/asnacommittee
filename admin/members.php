@@ -1,7 +1,7 @@
 <?php
 require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Committee - Members";
+$title = "Jalaria Admin - Members";
 $sql = "SELECT * FROM `all_members`";
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
@@ -51,12 +51,15 @@ include_once('./partials/header.php');
                         $address1 = $row['address1'];
                         $address2 = $row['address2'];
                         $area = $row['area'];
+                        $area = is_numeric($area) ? $db->runquery("SELECT * FROM `mosque_areas` WHERE `area_id`='$area'")->fetch_assoc()['area_name'] : $area;
                         $city = $row['city'];
+                        $city = is_numeric($city) ? $db->runquery("SELECT * FROM `cities` WHERE `id`='$city'")->fetch_assoc()['name'] : $city ;
                         $state = $row['state'];
+                        $state = is_numeric($state) ? $db->runquery("SELECT * FROM `states` WHERE `id`='$state'")->fetch_assoc()['name'] : $state;
                         $postcode = $row['postcode'];
                         $country = $row['country'];
                         $telephone = $row['telephone'];
-                ?>
+                        ?>
                 <div class="row" id="row<?= $Identification_id ?>">
                     <div class="col-2 col-sm-1 p-1 text-right">
                         <?= $i . '.' ?>

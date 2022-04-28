@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("./php/autoload.php");
-$title = "Asnaf Commitee - Notice board";
+$title = "Jalaria - Notice board";
 include_once('./partials/checckloggedout.php');
 include('partials/header.php');
 
@@ -15,22 +15,32 @@ $select = $db->runquery($sql);
 $count = $select->num_rows;
 
 ?>
-<div class="content-wrapper">
-    <div class="card">
-        <div class="card-body">
-            <div class="text-center">
-                <img src="./images/Ba_logo4.png" class="img-fluid" alt="Notice Board">
-            </div>
-            <div class="text-center">
-                <img src="./images/Ba_logo4a.png" class="img-fluid" alt="Notice Board">
-            </div>
-            <div class="text-center">
-                <img src="./images/Ba_logo4b.png" class="img-fluid" alt="Notice Board">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <div id="printContent" data-title="<?= $nick_name ?>">
+                    <?php if ($count > 0) { ?>
+                        <div class="d-flex justify-content-end">
+                            <?php include_once('./partials/printdate.php') ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <h4 class="text-center nTitle">Notice board</h4>
+                    <div class="text-center">
+                        <img src="./images/Ba_logo4.png" class="img-fluid" alt="Notice Board">
+                    </div>
+                    <div class="text-center">
+                        <img src="./images/Ba_logo4a.png" class="img-fluid" alt="Notice Board">
+                    </div>
+                    <div class="text-center">
+                        <img src="./images/Ba_logo4b.png" class="img-fluid" alt="Notice Board">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- content-wrapper ends -->
+    <!-- content-wrapper ends -->
 <?php
 include('./partials/_footer.php');
 ?>

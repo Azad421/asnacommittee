@@ -1,7 +1,7 @@
 <?php
 require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Members";
+$title = "Jalaria Admin - Donors";
 include('partials/header.php');
 $sql = "SELECT * FROM `donors`";// INNER JOIN `mosque_areas` ON `donors`.`area`=`mosque_areas`.`area_id`
 if (isset($_GET['search'])) {

@@ -1,8 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Members";
-include('partials/header.php');
+
 if (isset($_GET['mosque'])) {
     $mosque_id = $_GET['mosque'];
 } else {
@@ -14,6 +13,9 @@ $select = $db->runquery($sql);
 $count = $select->num_rows;
 $row = $select->fetch_assoc();
 $name = $row['mosque_name'];
+
+$title = $name;
+include('partials/header.php');
 ?>
 <div class="content-wrapper">
     <div class="card">

@@ -1,7 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee";
+$title = "Jalaria Admin - Add User";
 include('./partials/header.php');
 if(isset($_POST['add_user'])){
     $response = $user->saveNewUser($_POST);
@@ -448,8 +448,7 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="basic_skills_others">Basic Skills Others</label>
-                            <input type="text" id="basic_skills_others" name="basic_skills_others" class="form-control"
-                                   placeholder="Basic Skills Others" value="<?= $core->valuepost('basic_skills_others') ?>">
+                            <textarea name="basic_skills_others" id="basic_skills_others"><?= $core->valuepost('basic_skills_others') ?></textarea>
                         </div>
 <!--                        <div class="form-group">-->
 <!--                            <label for="liquid_assets">Liquid Assets</label>-->
@@ -545,13 +544,12 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="notes">Notes</label>
-                            <textarea name="notes" class="form-control" id="notes" rows="3"
-                                      placeholder="Notes"><?= $core->valuepost('notes') ?></textarea>
+                            <textarea name="notes" id="notes"
+                                    ><?= $core->valuepost('notes') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="life_condition">life condition</label>
-                            <input type="text" id="life_condition" name="life_condition" class="form-control"
-                                   placeholder="life condition" value="<?= $core->valuepost('life_condition') ?>">
+                            <textarea id="life_condition" name="life_condition"><?= $core->valuepost('life_condition') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="nick_name">Nick Name</label>
@@ -560,13 +558,11 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="income_explain">Income Explain</label>
-                            <textarea id="income_explain" name="income_explain" class="form-control" rows="3"
-                                      placeholder="Income Explain"><?= $core->valuepost('income_explain') ?></textarea>
+                            <textarea id="income_explain" name="income_explain"><?= $core->valuepost('income_explain') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="planned_action">Planned Action</label>
-                            <input type="text" id="planned_action" name="planned_action" class="form-control"
-                                   placeholder="Planned Action" value="<?= $core->valuepost('planned_action') ?>">
+                            <textarea id="planned_action" name="planned_action"><?= $core->valuepost('planned_action') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="help_category">Help Category</label>
@@ -593,8 +589,7 @@ if(isset($_POST['add_user'])){
                         </div>
                         <div class="form-group">
                             <label for="help_needed">Help Needed</label>
-                            <input type="text" id="help_needed" name="help_needed" class="form-control"
-                                   placeholder="Help Needed" value="<?= $core->valuepost('help_needed') ?>">
+                            <textarea name="help_needed" id="help_needed"><?= $core->valuepost('help_needed') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label>Please insert 5 images below</label>
@@ -640,23 +635,30 @@ if(isset($_POST['add_user'])){
     </div>
 </div>
 <script>
-    // $('form#add_user').submit(function (e) {
-    //     e.preventDefault();
-    //     var formid = $(this);
-    //     submitForm(e, formid, isAdded);
-    // });
-    //
-    // function isAdded(response) {
-    //     if (response.status == 1) {
-    //         $('#add_user').each(function () {
-    //             this.reset();
-    //         });
-    //         setTimeout(() => {
-    //             window.location.href = "members.php";
-    //         }, 3000);
-    //     }
-    // };
-
+    $(document).ready(function () {
+        summerNote('#planned_action', 'Planned Action');
+        summerNote('#income_explain', 'Income Explain');
+        summerNote('#life_condition', 'life condition');
+        summerNote('#notes', 'Notes');
+        summerNote('#basic_skills_others', 'Basic Skills Others');
+        summerNote('#help_needed', 'Help Needed');
+        function summerNote(id, placeholder){
+            $(id).summernote({
+                placeholder: placeholder,
+                tabsize: 2,
+                height: 80,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        }
+    });
     $('select.select2').select2();
     $('.dropify').dropify();
 </script>

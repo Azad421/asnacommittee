@@ -1,7 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee";
+$title = "Jalaria Admin - Update Member";
 include('./partials/header.php');
 if (isset($_GET['user'])) {
     $Identification_id = $_GET['user'];
@@ -318,9 +318,7 @@ if ($selectD->num_rows > 0) {
                             </div>
                             <div class="form-group">
                                 <label for="basic_skills_others">Basic Skills Others</label>
-                                <input type="text" id="basic_skills_others" name="basic_skills_others"
-                                       value="<?= $basic_skills_others ?>" class="form-control"
-                                       placeholder="Basic Skills Others">
+                                <textarea name="basic_skills_others" id="basic_skills_others"><?= $basic_skills_others ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="family_head_name">Family Head Name</label>
@@ -418,14 +416,12 @@ if ($selectD->num_rows > 0) {
                             </div>
                             <div class="form-group">
                                 <label for="notes">Notes</label>
-                                <textarea name="notes" class="form-control" id rows="3"
-                                          placeholder="Notes"><?= $notes ?></textarea>
+                                <textarea name="notes" class="form-control" id="notes"><?= $notes ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="life_condition">life condition</label>
-                                <input type="text" id="life_condition" name="life_condition"
-                                       value="<?= $life_condition ?>"
-                                       class="form-control" placeholder="life condition">
+                                <textarea id="life_condition" name="life_condition"><?= $life_condition ?>
+                            </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="nick_name">Nick Name</label>
@@ -434,14 +430,11 @@ if ($selectD->num_rows > 0) {
                             </div>
                             <div class="form-group">
                                 <label for="income_explain">Income Explain</label>
-                                <textarea id="income_explain" name="income_explain"class="form-control" rows="3"
-                                          placeholder="Income Explain"><?= $user['income_explain']??'' ?></textarea>
+                                <textarea id="income_explain" name="income_explain" ><?= $user['income_explain']??'' ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="planned_action">Planned Action</label>
-                                <input type="text" id="planned_action" name="planned_action"
-                                       value="<?= $user['planned_action'] ?>" class="form-control"
-                                       placeholder="Planned Action">
+                                <textarea name="planned_action" id="planned_action"><?= $user['planned_action'] ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="help_category">Help Category</label>
@@ -481,9 +474,7 @@ if ($selectD->num_rows > 0) {
                             </div>
                             <div class="form-group">
                                 <label for="help_needed">Help Needed</label>
-                                <input type="text" id="help_needed" name="help_needed"
-                                       value="<?= $donation_project['help_needed'] ?>" class="form-control"
-                                       placeholder="Help Needed">
+                                <textarea id="help_needed" name="help_needed"><?= $donation_project['help_needed'] ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Please insert 5 images below</label>
@@ -554,19 +545,30 @@ if ($selectD->num_rows > 0) {
         </div>
     </div>
     <script>
-        // $('form#update_user').submit(function (e) {
-        //     e.preventDefault();
-        //     var formid = $(this);
-        //     submitForm(e, formid, isAdded);
-        // });
-        //
-        // function isAdded(response) {
-        //     if (response.status == 1) {
-        //         setTimeout(() => {
-        //             // window.location.href = response.url;
-        //         }, 3000);
-        //     }
-        // };
+        $(document).ready(function () {
+            summerNote('#planned_action', 'Planned Action');
+            summerNote('#income_explain', 'Income Explain');
+            summerNote('#life_condition', 'life condition');
+            summerNote('#notes', 'Notes');
+            summerNote('#basic_skills_others', 'Basic Skills Others');
+            summerNote('#help_needed', 'Help Needed');
+            function summerNote(id, placeholder){
+                $(id).summernote({
+                    placeholder: placeholder,
+                    tabsize: 2,
+                    height: 80,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
+            }
+        });
         $('select.select2').select2();
         $('.dropify').dropify();
     </script>

@@ -1,8 +1,4 @@
-<?php
-$pages = explode('/',$_SERVER['PHP_SELF']);
-$page = end($pages);
 
-?>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <?php

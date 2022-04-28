@@ -4,8 +4,7 @@ ob_start();
 include_once("./php/autoload.php");
 
 include('partials/checkloggedin.php');
-$title = "Asnaf Commitee - Members";
-include('partials/header.php');
+
 if (isset($_GET['asnaf'])) {
     $asnaf_id = $_GET['asnaf'];
 } else {
@@ -16,6 +15,8 @@ $select = $db->runquery($sql);
 $count = $select->num_rows;
 $row = $select->fetch_assoc();
 $name = $row['name'];
+$title = $name;
+include('partials/header.php');
 ?>
 <div class="content-wrapper">
     <div class="card">

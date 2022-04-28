@@ -3,7 +3,7 @@ ob_start();
 include('partials/checkloggedin.php');
 ?>
 <?php
-$title = "Asnaf Commitee";
+$title = "Jalaria Update";
 include_once("./php/autoload.php");
 include('partials/header.php');
 

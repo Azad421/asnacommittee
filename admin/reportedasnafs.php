@@ -1,7 +1,7 @@
 <?php
 require_once("../php/autoload.php");
 include('partials/checkAdmin.php');
-$title = "Asnaf Commitee - Reported Asnaf";
+$title = "Jalaria Admin - Reported Asnaf";
 include('partials/header.php');
 $sql = "SELECT * FROM `reports` ";
 if (isset($_GET['search'])) {

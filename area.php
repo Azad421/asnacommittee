@@ -1,6 +1,6 @@
 <?php
 include_once("./php/autoload.php");
-$title = "Asnaf Commitee";
+$title = "Jalaria Members";
 include('partials/checkloggedin.php');
 include('partials/header.php');
 

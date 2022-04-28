@@ -39,7 +39,7 @@ class User
         $race = $this->db->realString($data['race']);
         $religion = $this->db->realString($data['religion']);
         $basic_skills = $this->db->realString($data['basic_skills']);
-        $basic_skills_others = $this->db->realString($data['basic_skills_others']);
+        $basic_skills_others = $data['basic_skills_others'];
         $family_head_name = $this->db->realString($data['family_head_name']);
         $head_id_type = $this->db->realString($data['head_id_type']);
         $head_id_no = $this->db->realString($data['head_id_no']);
@@ -51,11 +51,11 @@ class User
         $bank_account_no = $this->db->realString($data['bank_account_no']);
         $bank_account_holder_name = $this->db->realString($data['bank_account_holder_name']);
         $nick_name = $this->db->realString($data['nick_name']);
-        $life_condition = $this->db->realString($data['life_condition']);
-        $notes = $this->db->realString($data['notes']);
-        $income_explain = $this->db->realString($data['income_explain']);
-        $planned_action = $this->db->realString($data['planned_action']);
-        $help_needed = $this->db->realString($data['help_needed']);
+        $life_condition = $data['life_condition'];
+        $notes = $data['notes'];
+        $income_explain = $data['income_explain'];
+        $planned_action = $data['planned_action'];
+        $help_needed = $data['help_needed'];
         $start_collect = $this->db->realString($data['date_start_donation']);
         $end_collect = $this->db->realString($data['date_end_donation']);
 
@@ -202,7 +202,7 @@ class User
         $race = $this->db->realString($data['race']);
         $religion = $this->db->realString($data['religion']);
         $basic_skills = $this->db->realString($data['basic_skills']);
-        $basic_skills_others = $this->db->realString($data['basic_skills_others']);
+        $basic_skills_others = $data['basic_skills_others'];
         $family_head_name = $this->db->realString($data['family_head_name']);
         $head_id_type = $this->db->realString($data['head_id_type']);
         $head_id_no = $this->db->realString($data['head_id_no']);
@@ -214,11 +214,11 @@ class User
         $bank_account_no = $this->db->realString($data['bank_account_no']);
         $bank_account_holder_name = $this->db->realString($data['bank_account_holder_name']);
         $nick_name = $this->db->realString($data['nick_name']);
-        $life_condition = $this->db->realString($data['life_condition']);
-        $notes = $this->db->realString($data['notes']);
-        $income_explain = $this->db->realString($data['income_explain']);
-        $planned_action = $this->db->realString($data['planned_action']);
-        $help_needed = $this->db->realString($data['help_needed']);
+        $life_condition = $data['life_condition'];
+        $notes = $data['notes'];
+        $income_explain = $data['income_explain'];
+        $planned_action = $data['planned_action'];
+        $help_needed = $data['help_needed'];
 
         $start_collect = $this->db->realString($data['date_start_donation']);
         $end_collect = $this->db->realString($data['date_end_donation']);

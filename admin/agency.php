@@ -1,5 +1,5 @@
 <?php
-$title = "Asnaf Commitee";
+$title = "Jalaria Admin";
 include('./partials/checkAdmin.php');
 include_once('../php/autoload.php');
 include('partials/header.php');

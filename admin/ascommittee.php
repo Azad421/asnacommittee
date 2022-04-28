@@ -1,6 +1,6 @@
 <?php include_once('./partials/checkAdmin.php') ?>
 <?php
-$title = "Asnaf Commitee";
+$title = "Jalaria Admin - Committee";
 include_once("../php/autoload.php");
 include('partials/header.php');
 if (!isset($_GET['member'])) {

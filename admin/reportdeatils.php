@@ -1,7 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Report Details";
+$title = "Jalaria Admin - Report Details";
 include('partials/header.php');
 if (isset($_GET['report'])) {
     $report_id = $_GET['report'];

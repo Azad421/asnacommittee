@@ -52,9 +52,6 @@ include('partials/header.php');
                 <div id="printContent" data-title="<?= $nick_name ?>">
                     <?php if ($count > 0) { ?>
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-success printbtn" onclick="printDiv('printContent')">
-                                <span class="text-white">Print</span>
-                            </a>
                             <?php include_once('./partials/printdate.php') ?>
                         </div>
                         <?php
@@ -62,19 +59,23 @@ include('partials/header.php');
                     ?>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11"><?= $nick_name ?></div>
+                        <div class="col-12 col-sm-11 px-1 py-0"><p><b><?= $nick_name ?></b></p></div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11"><?= is_numeric($area) ? $db->runquery("SELECT * FROM `mosque_areas` WHERE `area_id`='$area'")->fetch_assoc()['area_name'] : $area ?></div>
+                        <div class="col-12 col-sm-11 px-1 py-0">
+                            <p><b><?= is_numeric($area) ? $db->runquery("SELECT * FROM `mosque_areas` WHERE `area_id`='$area'")->fetch_assoc()['area_name'] : $area ?></b></p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11"><?= is_numeric($city) ? $db->runquery("SELECT * FROM `cities` WHERE `id`='$city'")->fetch_assoc()['name'] : $city ?></div>
+                        <div class="col-12 col-sm-11 px-1 py-0">
+                            <p><b><?= is_numeric($city) ? $db->runquery("SELECT * FROM `cities` WHERE `id`='$city'")->fetch_assoc()['name'] : $city ?></b></p>
+                        </div>
                     </div>
                     <div class="row pt-3 pb-3">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11"><?= $life_condition ?></div>
+                        <div class="col-12 col-sm-11 px-1"><p><?= $life_condition ?></p></div>
                     </div>
                     <?php
                     $sql = "SELECT * FROM `images` WHERE `user_id`='$Identification_id'";
@@ -95,20 +96,20 @@ include('partials/header.php');
                         }
                     }
                     ?>
-                    <div class="row">
-                        <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-3 p-1">Donations So far:</div>
-                        <div class="col-12 col-sm-11 p-1">
-                        </div>
-                    </div>
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-0 col-sm-1 p-1"></div>-->
+                    <!--                        <div class="col-12 col-sm-3 p-1"><p>Donations So far:</p></div>-->
+                    <!--                        <div class="col-12 col-sm-11 p-1">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <div class="row mb-3">
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11 col-md-10 p-1">
-                            <div class="row m-0">
-                                <div class="col-4 border border-right-0 p-2">Donors</div>
-                                <div class="col-4 border border-left-0 p-2 border-right-0">Amount</div>
-                                <div class="col-4 border border-left-0 p-2">Date</div>
-                            </div>
+                            <!--                            <div class="row m-0">-->
+                            <!--                                <div class="col-4 border border-right-0 p-2"><p>Donors</p></div>-->
+                            <!--                                <div class="col-4 border border-left-0 p-2 border-right-0"><p>Amount</p></div>-->
+                            <!--                                <div class="col-4 border border-left-0 p-2"><p>Date</p></div>-->
+                            <!--                            </div>-->
                             <?php
                             $sql = "SELECT * FROM `donors` INNER JOIN `project_doners` ON `donors`.`id`=`project_doners`.`donor_id` WHERE `user_id`='$Identification_id'";
                             $selectDn = $db->runquery($sql);
@@ -117,9 +118,9 @@ include('partials/header.php');
                                 while ($donor = $selectDn->fetch_assoc()) {
                                     ?>
                                     <div class="row m-0">
-                                        <div class="col-4 border border-right-0 p-2"><?= $donor['donor_name'] ?></div>
-                                        <div class="col-4 border border-left-0 p-2 border-right-0"><?= $donor['amount'] ?></div>
-                                        <div class="col-4 border border-left-0 p-2"><?= $donor['date'] ?></div>
+                                        <div class="col-4 border border-right-0 p-2"></p><?= $donor['donor_name'] ?></p></div>
+                                        <div class="col-4 border border-left-0 p-2 border-right-0"></p><?= $donor['amount'] ?></p></div>
+                                        <div class="col-4 border border-left-0 p-2"></p><?= $donor['date'] ?></p></div>
                                     </div>
                                     <?php
                                 }
@@ -128,59 +129,65 @@ include('partials/header.php');
                         </div>
                         <div class="col-0 col-sm-1 p-1"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-3 p-1">Media Coverage:</div>
-                        <div class="col-12 col-sm-11">
+                    <?php
+                    $references = $db->runquery("SELECT * FROM `asnaf_references` WHERE `asnaf_id`='$asnaf_id' AND `source`<>'Registered'");
+                    $count = $references->num_rows;
+                    if ($count > 0) {
+                        ?>
+                        <div class="row">
+                            <div class="col-0 col-sm-1 p-1"></div>
+                            <div class="col-12 col-sm-3 p-1"><p>Media Coverage:</p></div>
+                            <div class="col-12 col-sm-11 p-1">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 col-md-10 p-1">
-                            <?php
-                            $i = 1;
-                            $references = $db->runquery("SELECT * FROM `asnaf_references` WHERE `asnaf_id`='$asnaf_id'");
-                            $count = $references->num_rows;
-                            if ($count > 0) {
+                        <div class="row">
+                            <div class="col-0 col-sm-1 p-1"></div>
+                            <div class="col-12 col-sm-11 col-md-10 p-1">
+
+                                <?php
+                                $i = 1;
                                 while ($reference = $references->fetch_assoc()) {
-                                    ?><?= $i ?>
-                                        . <?= $reference['source'] . ' ' . date('d M Y', strtotime($reference['source_date'])) . ' ' . $reference['title'] ?>
+                                    ?><p><?= $i ?>
+                                    . <?= $reference['source'] . ' ' . date('d M Y', strtotime($reference['source_date'])) . ' ' . $reference['title'] ?> </p>
                                     <?php
                                     $i++;
                                 }
-                            }
-                            ?>
+
+                                ?>
+
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1"><?= $member['income_explain'] ?>
+                        <div class="col-12 col-sm-11 p-1">
+                            <p><?= $member['income_explain'] ?></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-0 col-sm-1 p-1 pt-3"></div>
-                        <div class="col-12 col-sm-3 col-md-10 p-1 pt-3"><?= $member['planned_action'] ?>
+                        <div class="col-12 col-sm-3 col-md-10 p-1 pt-3"><p><?= $member['planned_action'] ?></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">Donation Start:</div>
+                        <div class="col-12 col-sm-11 px-1 pb-0 pt-1"><p>Donation Start:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">
-                            <?= date('d M Y', strtotime($member['start_collect'])) ?>
+                        <div class="col-12 col-sm-11 px-1 pb-1 pt-0">
+                            <p><?= date('d M Y', strtotime($member['start_collect'])) ?></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">Donation Closed:</div>
+                        <div class="col-12 col-sm-11 px-1 pb-0 pt-1"><p>Donation Closed:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">
-                            <?= date('d M Y', strtotime($member['end_collect'])) ?>
+                        <div class="col-12 col-sm-11 px-1 pb-1 pt-0">
+                            <p> <?= date('d M Y', strtotime($member['end_collect'])) ?></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-3 p-1">Help Needed:</div>
+                        <div class="col-12 col-sm-3 p-1"><p>Help Needed:</p></div>
                         <div class="col-12 col-sm-11 p-1">
                         </div>
                     </div>
@@ -193,13 +200,13 @@ include('partials/header.php');
                                 $i = 1;
                                 while ($help = $helps->fetch_assoc()) {
                                     ?>
-                                    <div><?= $i . ". " . $help['name'] ?></div>
+                                    <div><p><?= $i . ". " . $help['name'] ?></p></div>
                                     <?php
                                     $i++;
                                 }
                             }
                             ?>
-                            <div class="mt-4"><?= $member['help_needed'] ?></div>
+                            <div class="mt-4"></p><?= $member['help_needed'] ?></p></div>
                         </div>
                     </div>
                 </div>

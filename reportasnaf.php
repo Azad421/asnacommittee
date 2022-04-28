@@ -2,7 +2,7 @@
 session_start();
 include_once("./php/autoload.php");
 include_once('./partials/checckloggedout.php');
-$title = "Asnaf Commitee - Report Asnaf";
+$title = "Jalaria - Report Asnaf";
 $areas = [];
 $countries = [];
 include('./partials/header.php');
@@ -69,8 +69,11 @@ include('./partials/header.php');
                         </div>
                         <div class="form-group">
                             <label for="report_asnaf_condition">Report Asnaf Condition</label>
-                            <textarea id="report_asnaf_condition" name="report_asnaf_condition" class="form-control"
+                            <textarea id="report_asnaf_condition" name="report_asnaf_condition" rows="9" class="form-control"
                                 placeholder="Report Asnaf Condition"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, saepe sapiente. Assumenda cum esse harum itaque minima officia reiciendis reprehenderit similique voluptate? Aliquid, eius, quo.</p>
                         </div>
                         <input type="hidden" name="add_report" value="1">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -51,9 +51,6 @@ include('partials/header.php');
                 <div id="printContent" data-title="<?= $name ?>">
                     <?php if ($count > 0) { ?>
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-success printbtn" onclick="printDiv('printContent')">
-                                <span class="text-white">Print</span>
-                            </a>
                             <?php include_once('./partials/printdate.php') ?>
                         </div>
 
@@ -62,16 +59,16 @@ include('partials/header.php');
                     ?>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1"><?= $name ?></div>
+                        <div class="col-12 col-sm-11  p-1"><p><?= $name ?></p></div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1"><?= $telephone ?></div>
+                        <div class="col-12 col-sm-11  p-1"><p><?= $telephone ?></p></div>
                     </div>
 
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1"><?= $member['gov_reg_no'] ?></div>
+                        <div class="col-12 col-sm-11  p-1"><p><?= $member['gov_reg_no'] ?></p></div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
@@ -98,7 +95,7 @@ include('partials/header.php');
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">Servicing Areas:</div>
+                        <div class="col-12 col-sm-11 p-1"><p>Servicing Areas:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11 p-1">
                             <div class="row mb-3">
@@ -109,8 +106,10 @@ include('partials/header.php');
                                     while ($area = $selectA->fetch_assoc()) {
                                         ?>
                                         <div class="col-12">
+                                            <p>
                                             <span class="pr-2"><?= $c ?></span>
                                             <span><?= $area['area_name'] ?></span>
+                                            </p>
                                         </div>
                                         <?php
                                         $c++;
@@ -122,7 +121,7 @@ include('partials/header.php');
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11 p-1">Category Of Donation:</div>
+                        <div class="col-12 col-sm-11 p-1"><p>Category Of Donation:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11 p-1">
                             <?php
@@ -131,8 +130,10 @@ include('partials/header.php');
                             while ($cat = $selectCat->fetch_assoc()) {
                                 ?>
                                 <div class="col-12 col-md-3 px-0">
+                                    <p>
                                     <span class="pr-2"><?= $c ?></span>
                                     <?= $cat['name'] ?>
+                                    </p>
                                 </div>
                                 <?php
                                 $c++;
@@ -145,38 +146,38 @@ include('partials/header.php');
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11  p-1">
-                            <?= $member['donate_details'] ?>
+                            <p><?= $member['donate_details'] ?></p>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-10 p-1">
-                            We Welcome your Donation Please Donate To
+                            <p>We Welcome your Donation Please Donate To</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1">Bank Name:</div>
+                        <div class="col-12 col-sm-11  p-1"><p>Bank Name:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11  p-1">
-                            <?= $member['bank_name'] ?>
+                            <p><?= $member['bank_name'] ?></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1">Bank Holder Name:</div>
+                        <div class="col-12 col-sm-11  p-1"><p>Bank Holder Name:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11  p-1">
-                            <?= $member['account_holder'] ?>
+                            <p><?= $member['account_holder'] ?></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-0 col-sm-1 p-1"></div>
-                        <div class="col-12 col-sm-11  p-1">Bank Account Number:</div>
+                        <div class="col-12 col-sm-11  p-1"><p>Bank Account Number:</p></div>
                         <div class="col-0 col-sm-1 p-1"></div>
                         <div class="col-12 col-sm-11  p-1">
-                            <?= $member['bank_account_no'] ?>
+                            <p><?= $member['bank_account_no'] ?></p>
                         </div>
                     </div>
 

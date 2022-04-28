@@ -1,6 +1,6 @@
 <?php
 ob_start();
-$title = "Asnaf Commitee";
+$title = "Jalaria Update Password";
 include_once("../php/autoload.php");
 include('partials/checkloggedin.php');
 include('partials/header.php');

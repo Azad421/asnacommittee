@@ -1,8 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Donor";
-include('partials/header.php');
+
 if (isset($_GET['donor'])) {
     $donor_id = $_GET['donor'];
 } else {
@@ -21,6 +20,8 @@ $donate_asnaf = $row['donate_asnaf'];
 $items_to_donate = $row['items_to_donate'];
 $telephone = $row['telephone'];
 $donate_to_jalaria = $row['donate_to_jalaria'];
+$title = $donor_name;
+include('partials/header.php');
 ?>
 <div class="content-wrapper">
     <div class="card">

@@ -1,7 +1,7 @@
 <?php
 include_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Commitee - Mosque";
+$title = "Jalaria Admin - Mosques";
 include('partials/header.php');
 $sql = "SELECT * FROM `mosques` ";
 if (isset($_GET['search'])) {

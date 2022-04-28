@@ -1,7 +1,7 @@
 <?php
 require_once("../php/autoload.php");
 include_once("./partials/checkAdmin.php");
-$title = "Asnaf Committee - References";
+$title = "Jalaria Admin - References";
 $sql = "SELECT `asnaf_references`.`id`, `m`.`name` AS name, `m`.`nick_name` AS nick_name, `references_material`.`name` AS `material_type`, `source`, `title`,`asnaf_references`.`country`,`status_record` FROM `asnaf_references` INNER JOIN `references_material` ON `asnaf_references`.`material_type`=`references_material`.`id` INNER JOIN `asnaf` ON `asnaf_references`.`asnaf_id`=`asnaf`.`asnaf_id` INNER JOIN `all_members` as m ON `m`.`Identification_id`=`asnaf`.`Identification_id` ";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $key = $_GET['search'];
